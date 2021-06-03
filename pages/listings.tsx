@@ -11,8 +11,7 @@ import PageTransition from "../src/hoc/PageTransition";
 import { PageAnimations } from "../types/interfaces/animation";
 import mapboxgl from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoianVzdGtlaXRoY2FyciIsImEiOiJja3Bmdnpva3IwMXpyMm9wOTEwZHdxNnU4In0.Mkh9oM6LqnYSqWgTKwfNpQ";
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
 
 interface Props {
   pageStyle?: CSSProperties;
