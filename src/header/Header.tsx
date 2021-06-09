@@ -16,12 +16,12 @@ export default function Header() {
                     Listings                    
                 </Button>
             </Link>
-            <Link href='/sign-up'>
+            <Link href='/auth/sign-up'>
                 <Button>
                     Sign Up
                 </Button>
             </Link>
-            <Link href='/login'>
+            <Link href='/auth/login'>
                 <Button>
                     Login
                 </Button>

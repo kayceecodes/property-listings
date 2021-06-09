@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles"
 import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 
 const arcBlue = "#0B72B9";
@@ -23,18 +23,6 @@ const breakpoints = createBreakpoints({});
 
 declare module "@material-ui/core/styles/createTypography" {
   interface TypographyOptions {
-    tab: {
-      fontFamily: string;
-      textTransform: string;
-      fontWeight: number;
-      fontSize: string;
-    };
-    container: {
-      fontFamily: string;
-      textTransform: string;
-      fontSize: string;
-      color: string;
-    };
     caption: {
       color: string;
       opacity?: string;
@@ -44,17 +32,7 @@ declare module "@material-ui/core/styles/createTypography" {
       textTransform?: string;
       textAlign?: string;
       margin?: string;
-    };
-    caption2: {
-      color: string;
-      opacity?: string;
-      fontFamily: string;
-      fontWeight?: number;
-      fontSize: string;
-      textTransform?: string;
-      textAlign?: string;
-      margin?: string;
-    };
+    },
   }
 }
 
@@ -87,6 +65,15 @@ export default createMuiTheme({
     action: {
         active: `${caribbeanBlue}`
     }
+  },
+  typography: {
+    caption: {
+      color: `${dimGray}`,
+       fontFamily: 'Inter',
+       fontWeight: 300,
+       fontSize: '0.9rem',
+       textTransform: 'none',
+    },
   },
   props: {
     MuiTypography: {

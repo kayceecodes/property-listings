@@ -31,7 +31,7 @@ interface Item {
 }
 
 interface Styles {
-  width: string | number;
+  width: string;
   margin: string | number;
   padding: string | number
 }

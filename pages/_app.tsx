@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Header />
         <CssBaseline />
         <FramerMotionProvider>
           {(props) => (
