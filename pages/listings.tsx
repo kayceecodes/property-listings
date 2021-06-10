@@ -1,10 +1,10 @@
-import React, { CSSProperties, useState } from 'react'
-;('@material-ui/core/MenuList/MenuList')
+import React, { CSSProperties, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import PageTransition from '../src/hoc/PageTransition'
 import Layout from '../src/hoc/Layout'
 import Map from '@/components/map/Map'
-import { data } from '../src/data/property-data'
+import data from './db-1623352993978.json'
+
 import PropertyCards from '@/components/propertyCards/Index'
 import { PageAnimations } from 'types/interfaces/animation'
 import { Property } from 'types/interfaces/property'

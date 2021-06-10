@@ -6,7 +6,8 @@
       "@/styles/*": ["styles/*"],
       "@/data/*": ["src/components/data/*"],
       "@/src/*": ["src/*"],
-      "@/theme/*": ["src/theme/*"]
+      "@/theme/*": ["src/theme/*"],
+      "@/utils/*": ["utils/*"],
     },
     "target": "es5",
     "lib": [
@@ -30,7 +31,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/data/generate.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -18,3 +18,13 @@ export interface Property {
 }
 
 export type Properties = Property[]
+
+export interface PropertyData {
+    _id: number
+    name: string
+    price: string
+    streetAddress: string
+    zipcode: string
+    latitude: string
+    longitude: string
+}
