@@ -21,10 +21,18 @@ export type Properties = Property[]
 
 export interface PropertyData {
     _id: number
-    name: string
+    propertyownername: string
     price: string
-    streetAddress: string
+    streetaddress: string
     zipcode: string
     latitude: string
     longitude: string
+    bedrooms: number
+    bathrooms: number
+    sqft: number
+    carSpaces: number
+    type: boolean
+    daysspotted: number
+    yearbuilt: number
+    petFriendly: string
 }

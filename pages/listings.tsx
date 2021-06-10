@@ -3,11 +3,10 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import PageTransition from '../src/hoc/PageTransition'
 import Layout from '../src/hoc/Layout'
 import Map from '@/components/map/Map'
-import data from './db-1623352993978.json'
-
+import data from './data/db.json'
 import PropertyCards from '@/components/propertyCards/Index'
 import { PageAnimations } from 'types/interfaces/animation'
-import { Property } from 'types/interfaces/property'
+import { Property, PropertyData } from 'types/interfaces/property'
 
 interface Props {
   pageStyle?: CSSProperties
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({}))
 export default function ListingsPage(props: Props) {
   const { pageAnimations, pageStyle } = props
   const classes = useStyles()
-  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
+  const [selectedProperty, setSelectedProperty] = useState<PropertyData | null>(null)
 
   return (
     <Layout>

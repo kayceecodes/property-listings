@@ -1,22 +1,16 @@
-import { CSSProperties, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl'
-import { PageAnimations } from '../../../types/interfaces/animation'
-// import { data } from '../../data/property-data'
-import data from '../../data/db-1623352993978.json'
 import Image from 'next/image'
-import { Button, Paper, Popover, Typography } from '@material-ui/core'
-import { Properties, Property, PropertyData } from 'types/interfaces/property'
+import { Paper, Typography } from '@material-ui/core'
+import { PropertyData } from 'types/interfaces/property'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { trimNumber } from 'utils/Parse'
-import faker from 'faker'
 
 interface Props {
   properties: any
   selectedProperty: PropertyData
   setSelectedProperty: React.Dispatch<React.SetStateAction<PropertyData>>
 }
-
-type BoundsArray = [[number, number], [number, number]]
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -32,8 +26,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-
-export default function Map({properties, selectedProperty, setSelectedProperty}: Props) {
+export default function Map({
+  properties,
+  selectedProperty,
+  setSelectedProperty,
+}: Props) {
   const classes = useStyles()
   const mapRef = useRef<any>(null)
   const [viewport, setViewport] = useState({
@@ -49,18 +46,24 @@ export default function Map({properties, selectedProperty, setSelectedProperty}:
     hide = 'hide',
   }
 
-  
   return (
     <ReactMapGL
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
       mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-    > 
-    {/* <div>{properties.map((prop) => {
-      prop.name
-      console.log(prop.price)
-    })}</div> */}
-      {properties.map((property: PropertyData) => (
+    >
+      <div>
+        {properties.map((prop: PropertyData) => {
+          console.log(" price :",prop.price)
+          console.log(" lat: ", parseInt(prop.latitude))
+          console.log("lng: ", prop.longitude)
+          console.log("type: ", prop.type)
+          console.log("yearbuilt: ", prop.yearbuilt)
+          console.log("bedrooms: ", prop.bedrooms)
+          console.log(" / ")
+        })}
+      </div>
+      {/* {properties.map((property: PropertyData) => (
         <div
           key={property._id}
          
@@ -83,15 +86,15 @@ export default function Map({properties, selectedProperty, setSelectedProperty}:
                 height={35}
               />
               <br />
-              <Paper><small>${trimNumber(property.price)}</small></Paper>
+              <Paper><small>${trimNumber(parseInt(property.price))}</small></Paper>
             </button>
           </Marker>
         </div>
       ))}
       {status === 'show' && (
         <Popup
-          latitude={selectedProperty.latitude}
-          longitude={selectedProperty.longitude}
+          latitude={parseInt(selectedProperty.latitude)}
+          longitude={parseInt(selectedProperty.longitude)}
           onClose={() => {
             setStatus(PopoverStatus.hide)
           }}
@@ -104,7 +107,7 @@ export default function Map({properties, selectedProperty, setSelectedProperty}:
             </small>
           </Typography>
         </Popup>
-      )}
+      )} */}
     </ReactMapGL>
   )
 }

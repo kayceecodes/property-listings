@@ -1,3 +1,14 @@
+export const parseCoordinates = (value: string) => {
+  let arr = value.split('.').map((char) => parseInt(char))
+  
+  arr[0] 
+  
+  console.log(arr[1])
+  return arr[0] + arr[1]
+}
+
+console.log(parseCoordinates('-39.0035'))
+
 export const trimNumber = (num: number) => {
   let arr = num.toString().split('')
   /* if array is more than 6 then return '##m' if not '##k*/
