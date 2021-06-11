@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer',
     boxShadow: '0 0 15px #000000aa',
   },
+  priceTags: {
+    backgroundColor: '#fdf0db',
+  },
 }))
 
 export default function Map({
@@ -35,6 +38,7 @@ export default function Map({
   const mapRef = useRef<any>(null)
   const [viewport, setViewport] = useState({
     width: '100%',
+    /*width: 1289*/
     height: 450,
     latitude: 39.9521508977735,
     longitude: -75.14393627643587,
@@ -51,25 +55,14 @@ export default function Map({
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
       mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-    >
-      <div>
-        {properties.map((prop: PropertyData) => {
-          console.log(" price :",prop.price)
-          console.log(" lat: ", parseInt(prop.latitude))
-          console.log("lng: ", prop.longitude)
-          console.log("type: ", prop.type)
-          console.log("yearbuilt: ", prop.yearbuilt)
-          console.log("bedrooms: ", prop.bedrooms)
-          console.log(" / ")
-        })}
-      </div>
-      {/* {properties.map((property: PropertyData) => (
+      mapStyle="mapbox://styles/leighhalliday/ckhjaksxg0x2v19s1ovps41ef"
+    >      
+      {properties.map((property: PropertyData, i) => (
         <div
           key={property._id}
-         
-          // onMouseOut={() => setStatus(PopoverStatus.hide)}
         >
-          <Marker latitude={parseInt(property.latitude)} longitude={parseInt(property.longitude)}>
+          {console.log('lat: ', property.latitude)}
+          <Marker latitude={property.latitude} longitude={property.longitude}>
             <button
               className={classes.markerBtn}
               onMouseOver={() => {
@@ -86,28 +79,28 @@ export default function Map({
                 height={35}
               />
               <br />
-              <Paper><small>${trimNumber(parseInt(property.price))}</small></Paper>
+              <Paper classes={{root: classes.priceTags}}><small>{trimNumber(property.price)}</small></Paper>
             </button>
           </Marker>
         </div>
       ))}
       {status === 'show' && (
         <Popup
-          latitude={parseInt(selectedProperty.latitude)}
-          longitude={parseInt(selectedProperty.longitude)}
+          latitude={selectedProperty.latitude}
+          longitude={selectedProperty.longitude}
           onClose={() => {
             setStatus(PopoverStatus.hide)
           }}
         >
           <Typography variant="caption">
           <small>
-            {'$' + selectedProperty.price} <br />
+            {selectedProperty.price} <br />
             {'bd: ' + selectedProperty.bedrooms + ' '}
             {' sqft: ' + selectedProperty.sqft}
             </small>
           </Typography>
         </Popup>
-      )} */}
+      )}
     </ReactMapGL>
   )
 }

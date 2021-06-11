@@ -53,3 +53,15 @@
     - longitude
     - realtor name
     -  
+
+
+
+
+
+
+
+
+## Finished 
+    - Created reusable button from material
+    - db.json in listings/map
+    - functions for parsing 'k' & 'm'

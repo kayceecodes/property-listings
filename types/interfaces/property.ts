@@ -25,8 +25,8 @@ export interface PropertyData {
     price: string
     streetaddress: string
     zipcode: string
-    latitude: string
-    longitude: string
+    latitude: number
+    longitude: number
     bedrooms: number
     bathrooms: number
     sqft: number

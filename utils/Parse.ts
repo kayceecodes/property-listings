@@ -1,23 +1,18 @@
-export const parseCoordinates = (value: string) => {
-  let arr = value.split('.').map((char) => parseInt(char))
-  
-  arr[0] 
-  
-  console.log(arr[1])
-  return arr[0] + arr[1]
+export const insertCommas = (value: string): string => {
+
+
+  return ''
 }
+console.log(insertCommas)
 
-console.log(parseCoordinates('-39.0035'))
-
-export const trimNumber = (num: number) => {
-  let arr = num.toString().split('')
-  /* if array is more than 6 then return '##m' if not '##k*/
-  arr.length > 6 ? arr.splice(6, 6, 'm')
-  : arr.splice(3, 3, 'k')
+export const trimNumber = (value: string) => {
+  let arr = value.split('')
+  /* Count from right to left how many numbers will be replaced by a character 'm' | 'k' */
+  arr.length > 10 ? arr.splice(arr.length-9, 10, 'M') : arr.splice(3, 7, 'K')
 
   return arr
 }
-
+console.log(trimNumber('$322000000.00'))
 /**
  * Shorten the length an item name and add '...'.This is to even out each title that represents an item/product
  * @param str: string[]

@@ -4,7 +4,7 @@ module.exports = function() {
     var faker = require('faker');
     var _ = require('lodash')
     return {
-        properties:_.times(700, function (num) {
+        properties:_.times(40, function (num) {
 
             return {
                 _id: num,
@@ -12,8 +12,8 @@ module.exports = function() {
                 price: faker.commerce.price(699, 1200000, 2, '$'),
                 streetaddress: faker.address.streetAddress(true),
                 zipcode: faker.address.zipCode(),
-                latitude: faker.address.latitude(-39.91007, -40.05473200000000),
-                longitude: faker.address.longitude(-75.15144, -75.16871200000000),
+                latitude: parseFloat(faker.address.latitude(39.91007, 40.04473, 14)),
+                longitude: parseFloat(faker.address.longitude(-75.13988, -75.23764, 14)),
                 bedrooms: faker.datatype.number(3),
                 bathrooms: faker.datatype.number(3),
                 sqft: faker.datatype.number(1800) + 300,

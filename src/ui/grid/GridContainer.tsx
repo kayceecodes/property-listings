@@ -5,38 +5,37 @@ import Grid, {
   GridWrap,
   GridJustification,
   GridItemsAlignment,
-} from "@material-ui/core/Grid/Grid";
-import { GridSize } from "@material-ui/core/Grid/Grid";
+} from '@material-ui/core/Grid/Grid'
+import { GridSize } from '@material-ui/core/Grid/Grid'
 
-import React, { HtmlHTMLAttributes, ReactNode } from "react";
+import React, { HtmlHTMLAttributes, ReactNode } from 'react'
 
 interface Container {
-  alignContent: GridContentAlignment;
-  alignItems: GridItemsAlignment;
-  //   container: boolean;
-  direction: GridDirection;
-  //   item: boolean;
-  justify: GridJustification;
-  spacing: GridSpacing;
-  wrap: GridWrap;
-  zeroMinWidth: boolean;
-  children: ReactNode[];
+  alignContent: GridContentAlignment
+  alignItems: GridItemsAlignment
+  direction: GridDirection
+  justify: GridJustification
+  spacing: GridSpacing
+  wrap: GridWrap
+  zeroMinWidth: boolean
+  children: ReactNode[]
 }
 
 interface Item {
-  xs: number;
-  sm: number;
-  md: number;
-  lg: number;
+  xs: number
+  sm: number
+  md: number
+  lg: number
 }
 
 interface Styles {
-  width: string;
-  margin: string | number;
+  height: string
+  width: string
+  margin: string | number
   padding: string | number
 }
 
-type Props = Item & Container & HtmlHTMLAttributes<any> & Styles;
+type Props = Item & Container & HtmlHTMLAttributes<any> & Styles
 
 export default function ContainItems(props: Partial<Props>) {
   return (
@@ -48,7 +47,12 @@ export default function ContainItems(props: Partial<Props>) {
       justify={props.justify as GridJustification}
       spacing={props.spacing as GridSpacing}
       wrap={props.wrap as GridWrap}
-      style={{ width: props.width, margin: props.margin, padding: props.padding }}
+      style={{
+        height: props.height,
+        width: props.width,
+        margin: props.margin,
+        padding: props.padding,
+      }}
     >
       {props.children?.map((item, index) => (
         <Grid
@@ -64,5 +68,5 @@ export default function ContainItems(props: Partial<Props>) {
         </Grid>
       ))}
     </Grid>
-  );
+  )
 }

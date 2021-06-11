@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import PageTransition from '../src/hoc/PageTransition'
 import Layout from '../src/hoc/Layout'
@@ -13,24 +13,27 @@ interface Props {
   pageAnimations: PageAnimations
 }
 
-const useStyles = makeStyles((theme: Theme) => ({}))
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    backgroundColor: '#cacacf',
+  },
+}))
 
 export default function ListingsPage(props: Props) {
   const { pageAnimations, pageStyle } = props
   const classes = useStyles()
-  const [selectedProperty, setSelectedProperty] = useState<PropertyData | null>(null)
+  const [selectedProperty, setSelectedProperty] =
+    useState<PropertyData | null>(null)
 
   return (
     <Layout>
       <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
-        <div style={{ height: '400px', width: '100%' }}>
-          <Map
-            properties={data.properties}
-            selectedProperty={selectedProperty}
-            setSelectedProperty={setSelectedProperty}
-          />
-          <PropertyCards properties={data.properties} />
-        </div>
+        <Map
+          properties={data.properties}
+          selectedProperty={selectedProperty}
+          setSelectedProperty={setSelectedProperty}
+        />
+        <PropertyCards properties={data.properties} />
       </PageTransition>
     </Layout>
   )
