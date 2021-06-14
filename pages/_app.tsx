@@ -8,6 +8,7 @@ import Header from "../src/header/Header";
 import Head from "next/head";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useRouter } from "next/router";
+import { wrapper } from '../src/store/store'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()  
@@ -38,4 +39,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

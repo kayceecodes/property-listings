@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body style={{backgroundColor: '#161b22'}}>
+          Hello _document
           <Main />
           <NextScript />
         </body>

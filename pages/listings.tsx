@@ -27,14 +27,14 @@ export default function ListingsPage(props: Props) {
 
   return (
     <Layout>
-      <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
+      {/* <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}> */}
         <Map
           properties={data.properties}
           selectedProperty={selectedProperty}
           setSelectedProperty={setSelectedProperty}
         />
         <PropertyCards properties={data.properties} />
-      </PageTransition>
+      {/* </PageTransition> */}
     </Layout>
   )
 }

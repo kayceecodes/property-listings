@@ -17,9 +17,9 @@ export default function Login(props: Props) {
   const { pageAnimations, pageStyle } = props
   return (
     <Layout>
-      <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
+      {/* <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}> */}
         <div>Login</div>
-      </PageTransition>
+      {/* </PageTransition>s */}
     </Layout>
   )
 }

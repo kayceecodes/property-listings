@@ -19,9 +19,9 @@ interface Props {
     const { pageAnimations, pageStyle } = props
     return (
         <Layout>
-      <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
+      {/* <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}> */}
             <div>Sign Up</div>
-      </PageTransition>
+      {/* </PageTransition> */}
       </Layout>
     )
   }

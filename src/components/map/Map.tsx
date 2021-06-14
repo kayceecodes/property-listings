@@ -2,12 +2,12 @@ import { useRef, useState } from 'react'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl'
 import Image from 'next/image'
 import { Paper, Typography } from '@material-ui/core'
-import { PropertyData } from 'types/interfaces/property'
+import { Properties, PropertyData } from 'types/interfaces/property'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { trimNumber } from 'utils/Parse'
+import { trimNumber } from '../../../utils/Parse'
 
 interface Props {
-  properties: any
+  properties: PropertyData[]
   selectedProperty: PropertyData
   setSelectedProperty: React.Dispatch<React.SetStateAction<PropertyData>>
 }
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   markerBtn: {
     backgroundColor: 'transparent',
     border: '0 solid transparent',
-  },
-  '&:hover': {
-    cursor: 'pointer',
-    boxShadow: '0 0 15px #000000aa',
+    '&:hover': {
+      cursor: 'pointer',
+      boxShadow: '0 0 15px #000000aa',
+    },
   },
   priceTags: {
     backgroundColor: '#fdf0db',
@@ -61,7 +61,6 @@ export default function Map({
         <div
           key={property._id}
         >
-          {console.log('lat: ', property.latitude)}
           <Marker latitude={property.latitude} longitude={property.longitude}>
             <button
               className={classes.markerBtn}
@@ -85,7 +84,7 @@ export default function Map({
         </div>
       ))}
       {status === 'show' && (
-        <Popup
+        <Popup          
           latitude={selectedProperty.latitude}
           longitude={selectedProperty.longitude}
           onClose={() => {
@@ -93,7 +92,7 @@ export default function Map({
           }}
         >
           <Typography variant="caption">
-          <small>
+          <small role='textbox'>
             {selectedProperty.price} <br />
             {'bd: ' + selectedProperty.bedrooms + ' '}
             {' sqft: ' + selectedProperty.sqft}

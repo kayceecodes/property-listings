@@ -31,7 +31,7 @@ export interface PropertyData {
     bathrooms: number
     sqft: number
     carSpaces: number
-    type: boolean
+    type: string
     daysspotted: number
     yearbuilt: number
     petFriendly: string
