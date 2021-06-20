@@ -1,8 +1,8 @@
 {
   "properties": [
     {
-      "_id": 0,
-      "propertyownername": "Ruth King",
+      "id": 0,
+      "propertyOwnerName": "Ruth King",
       "price": "$1189830.00",
       "streetaddress": "66667 Dan Springs Suite 983",
       "zipcode": "70269",
@@ -18,7 +18,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 1,
+      "id": 1,
       "propertyownername": "Mindy Ledner",
       "price": "$863972.00",
       "streetaddress": "51380 Jacklyn Forest Suite 884",
@@ -35,7 +35,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 2,
+      "id": 2,
       "propertyownername": "Miss Rose Kub",
       "price": "$192336.00",
       "streetaddress": "4470 Stefanie Flat Apt. 014",
@@ -52,7 +52,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 3,
+      "id": 3,
       "propertyownername": "Vicki McKenzie Jr.",
       "price": "$1099657.00",
       "streetaddress": "56764 Bartoletti Canyon Suite 947",
@@ -69,7 +69,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 4,
+      "id": 4,
       "propertyownername": "Wayne Kirlin",
       "price": "$577869.00",
       "streetaddress": "278 Mohr Village Apt. 798",
@@ -86,7 +86,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 5,
+      "id": 5,
       "propertyownername": "Gerard Hills",
       "price": "$515964.00",
       "streetaddress": "524 Stamm Orchard Apt. 512",
@@ -103,7 +103,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 6,
+      "id": 6,
       "propertyownername": "Kyle Jacobi",
       "price": "$219084.00",
       "streetaddress": "17052 Hayden Cliffs Apt. 573",
@@ -120,7 +120,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 7,
+      "id": 7,
       "propertyownername": "Natalie Breitenberg",
       "price": "$975397.00",
       "streetaddress": "86717 Emiliano Rapid Suite 077",
@@ -137,7 +137,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 8,
+      "id": 8,
       "propertyownername": "Gretchen Johnston",
       "price": "$1082808.00",
       "streetaddress": "6382 Becker Port Suite 789",
@@ -154,7 +154,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 9,
+      "id": 9,
       "propertyownername": "Gustavo Williamson",
       "price": "$105555.00",
       "streetaddress": "458 Delbert Loaf Suite 048",
@@ -171,7 +171,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 10,
+      "id": 10,
       "propertyownername": "Andres Stroman",
       "price": "$744502.00",
       "streetaddress": "78472 Sydni Land Apt. 454",
@@ -188,7 +188,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 11,
+      "id": 11,
       "propertyownername": "Sean Hills",
       "price": "$1034914.00",
       "streetaddress": "27324 Rutherford Station Suite 668",
@@ -205,7 +205,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 12,
+      "id": 12,
       "propertyownername": "Julie Maggio",
       "price": "$1168859.00",
       "streetaddress": "256 Minnie Springs Suite 198",
@@ -222,7 +222,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 13,
+      "id": 13,
       "propertyownername": "Rochelle O'Kon",
       "price": "$936715.00",
       "streetaddress": "125 Schiller Bridge Suite 216",
@@ -239,7 +239,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 14,
+      "id": 14,
       "propertyownername": "Pete Tillman",
       "price": "$1044963.00",
       "streetaddress": "480 Antonette Island Suite 810",
@@ -256,7 +256,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 15,
+      "id": 15,
       "propertyownername": "Courtney Miller",
       "price": "$457056.00",
       "streetaddress": "089 Kallie Valley Apt. 931",
@@ -273,7 +273,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 16,
+      "id": 16,
       "propertyownername": "Kelly Wiegand",
       "price": "$740585.00",
       "streetaddress": "867 Emile Vista Apt. 053",
@@ -290,7 +290,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 17,
+      "id": 17,
       "propertyownername": "Sherry Abbott MD",
       "price": "$82583.00",
       "streetaddress": "08226 Bulah Place Apt. 090",
@@ -307,7 +307,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 18,
+      "id": 18,
       "propertyownername": "Christopher Streich",
       "price": "$1140429.00",
       "streetaddress": "159 Alicia Junctions Suite 345",
@@ -324,7 +324,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 19,
+      "id": 19,
       "propertyownername": "Rosalie Simonis DDS",
       "price": "$1119658.00",
       "streetaddress": "675 Spinka Summit Suite 110",
@@ -341,7 +341,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 20,
+      "id": 20,
       "propertyownername": "Darrel Medhurst",
       "price": "$70046.00",
       "streetaddress": "71440 Walker Walk Apt. 426",
@@ -358,7 +358,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 21,
+      "id": 21,
       "propertyownername": "Ivan Watsica",
       "price": "$1103015.00",
       "streetaddress": "68040 Lawrence Brook Suite 020",
@@ -375,7 +375,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 22,
+      "id": 22,
       "propertyownername": "James Upton",
       "price": "$292678.00",
       "streetaddress": "4732 Cornell Way Apt. 922",
@@ -392,7 +392,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 23,
+      "id": 23,
       "propertyownername": "Juanita Lehner",
       "price": "$356363.00",
       "streetaddress": "5210 Prosacco Hill Apt. 873",
@@ -409,7 +409,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 24,
+      "id": 24,
       "propertyownername": "Clark Emmerich",
       "price": "$383253.00",
       "streetaddress": "05993 Coralie Hollow Suite 070",
@@ -426,7 +426,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 25,
+      "id": 25,
       "propertyownername": "Dr. Crystal Hauck",
       "price": "$193516.00",
       "streetaddress": "4654 Ladarius Lakes Suite 255",
@@ -443,7 +443,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 26,
+      "id": 26,
       "propertyownername": "Miss Ginger Rau",
       "price": "$988318.00",
       "streetaddress": "5447 Corwin River Apt. 137",
@@ -460,7 +460,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 27,
+      "id": 27,
       "propertyownername": "Antonio Schroeder",
       "price": "$5209.00",
       "streetaddress": "853 Derek Trail Suite 196",
@@ -477,7 +477,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 28,
+      "id": 28,
       "propertyownername": "Bethany Gutmann",
       "price": "$419063.00",
       "streetaddress": "80296 Charley Canyon Apt. 991",
@@ -494,7 +494,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 29,
+      "id": 29,
       "propertyownername": "Jerald Hermann",
       "price": "$697828.00",
       "streetaddress": "2843 Carmen Cliffs Apt. 104",
@@ -511,7 +511,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 30,
+      "id": 30,
       "propertyownername": "Ms. Chris Roberts",
       "price": "$865013.00",
       "streetaddress": "025 Charity Camp Suite 373",
@@ -528,7 +528,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 31,
+      "id": 31,
       "propertyownername": "Jerald Swaniawski",
       "price": "$1127247.00",
       "streetaddress": "2469 O'Keefe Junction Suite 264",
@@ -545,7 +545,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 32,
+      "id": 32,
       "propertyownername": "Brent Boehm",
       "price": "$964912.00",
       "streetaddress": "37362 Hettinger Port Apt. 579",
@@ -562,7 +562,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 33,
+      "id": 33,
       "propertyownername": "Ella Hegmann",
       "price": "$41017.00",
       "streetaddress": "0763 Beier Mount Suite 377",
@@ -579,7 +579,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 34,
+      "id": 34,
       "propertyownername": "Bobbie Hickle",
       "price": "$274521.00",
       "streetaddress": "367 Dalton Orchard Apt. 177",
@@ -596,7 +596,7 @@
       "petFriendly": "no"
     },
     {
-      "_id": 35,
+      "id": 35,
       "propertyownername": "Leslie Okuneva",
       "price": "$318758.00",
       "streetaddress": "9554 Yost Lakes Suite 055",
@@ -613,7 +613,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 36,
+      "id": 36,
       "propertyownername": "Cecelia Wilkinson",
       "price": "$1074844.00",
       "streetaddress": "285 Erdman Bypass Apt. 083",
@@ -630,7 +630,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 37,
+      "id": 37,
       "propertyownername": "Alberta Schroeder",
       "price": "$184250.00",
       "streetaddress": "081 Cartwright Rest Apt. 198",
@@ -647,7 +647,7 @@
       "petFriendly": "cats only"
     },
     {
-      "_id": 38,
+      "id": 38,
       "propertyownername": "Tom Lind PhD",
       "price": "$753997.00",
       "streetaddress": "05494 Vincenza Dale Suite 807",
@@ -664,7 +664,7 @@
       "petFriendly": "yes"
     },
     {
-      "_id": 39,
+      "id": 39,
       "propertyownername": "Aaron Crooks",
       "price": "$535467.00",
       "streetaddress": "6900 Dayna Courts Apt. 549",

@@ -7,12 +7,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { route } from 'next/dist/next-server/server/router'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    backgroundColor: '#161b22',
-  },
-  links: {
-    color: '#ddd',
-  },
+  
 }))
 
 const routes = [
@@ -25,11 +20,11 @@ const routes = [
     text: 'Listings',
   },
   {
-    path: '/sign-up',
+    path: '/auth/sign-up',
     text: 'Sign Up',
   },
   {
-    path: '/login',
+    path: '/auth/login',
     text: 'Login',
   },
 ]
@@ -39,10 +34,16 @@ export default function Header() {
 
   return (
     <div style={{ backgroundColor: '#161b22' }}>
-      <GridContainer alignItems="center" justify="center" xs={2} padding={30}>
+      <GridContainer alignItems="center" justify="center" xs={3} padding={30}>
         {routes.map((route) => (
              <Link key={route.text} href={route.path}>
-             <Button style={{ color: '#ddd' }}>{route.text}</Button>
+             <Button
+             style={{
+                backgroundColor: '#161b22',
+                color: '#ccc',
+                font: '0.9rem Inter',
+                textTransform: 'none'
+             }}>{route.text}</Button>
            </Link>
         ))}
       </GridContainer>

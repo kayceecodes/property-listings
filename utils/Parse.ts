@@ -3,7 +3,7 @@ export const insertCommas = (value: string): string => {
 
   return ''
 }
-console.log(insertCommas)
+// console.log(insertCommas)
 
 export const trimNumber = (value: string) => {
   let arr = value.split('')
@@ -12,7 +12,7 @@ export const trimNumber = (value: string) => {
 
   return arr
 }
-console.log(trimNumber('$322000000.00'))
+// console.log(trimNumber('$322000000.00'))
 /**
  * Shorten the length an item name and add '...'.This is to even out each title that represents an item/product
  * @param str: string[]

@@ -1,18 +1,26 @@
-// jest.mock(
-//   '@material-ui/core/someMuiComp/someMuiComp',
-//   () =>
-//     ({ children }: any) =>
-//       <div>{children}</div>
-// )
 import React from 'react'
-import Map from '../src/components/map/Map'
-import { render } from '../tests/test-utils'
-import { screen } from '@testing-library/dom'
+// import { render } from '../tests/test-utils'
+import { render } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
+import { trimNumber } from '../utils/Parse'
+import MyMap from '../src/components/map/MyMap';
 
-type MapType = React.ComponentProps<typeof Map>
+// jest.mock('react-map-gl', () => ({children, ReactMapGL}) => <ReactMapGL>{children}</ReactMapGL>)
 
-const baseProps: MapType = {
+// jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
+//   GeolocateControl: jest.fn(),
+//   Map: jest.fn(() => ({
+//     addControl: jest.fn(),
+//     on: jest.fn(),
+//     remove: jest.fn()
+//   })),
+//   NavigationControl: jest.fn()
+// }));
+
+export type MyMapType = React.ComponentProps<typeof MyMap>
+
+const baseProps: MyMapType = {
   setSelectedProperty: () => {},
   selectedProperty: {
     _id: 0,
@@ -66,25 +74,17 @@ const baseProps: MapType = {
       yearbuilt: 1993,
       petFriendly: 'yes',
     },
-  ]
+  ],
 }
 
-//   test('SomeComponent shows default value', (children) => {
-//     render(<SomeComponent children={children} />)
-//     expect(screen.getByText(/Black Stones/)).toBeInTheDocument()
-//   })
+// const renderUI = (props?: MapType) =>
+//   render(<Map {...baseProps} {...props} />, {})
 
-//   const categoryCount = (category: string) =>
-//     someData.reduce(
-//       (acc, elem, index, arr): any =>
-//         category === elem.category ? acc + 1 : acc,
-//       0
-//     )
+test('check if multiple markers are showing', async () => {
+  render(<MyMap {...baseProps} />, {})
+  // renderUI()
 
-const renderUI = (props?: MapType) => render(<Map {...baseProps} {...props} />, {})
-
-test('check if markers are in place', () => {
-  renderUI()
-  const smallText = screen.getAllByRole('textbox')
-  expect(smallText).toBeInTheDocument()
+  await waitFor(() => {
+    // expect(screen.findByRole('textbox')).toBeInTheDocument()
+  })
 })

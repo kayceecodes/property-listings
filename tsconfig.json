@@ -1,20 +1,15 @@
-{  
+{
   "compilerOptions": {
-    "baseUrl": ".",  
+    "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/styles/*": ["styles/*"],
       "@/data/*": ["src/components/data/*"],
       "@/src/*": ["src/*"],
-      "@/theme/*": ["src/theme/*"],
-      "@/utils/*": ["utils/*"],
+      "@/theme/*": ["src/theme/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -30,9 +25,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/data/generate.js"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "src/data/generate.js",
+    "src/data/generate-contentful.js"
+  ],
+  "exclude": ["node_modules"]
 }

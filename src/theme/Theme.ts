@@ -18,6 +18,7 @@ const brightMudBrown = '#2e2210'; // Highlight
 // const cadetBlue = rgb(95,158,160)
 const caribbeanBlue = '#46bfdc'
 const navyBlue = '#111833'
+const darkSlateBlue = '#161b22'
 const kitkatOrange = 'rgba(205,100,45, 1)'
 const breakpoints = createBreakpoints({});
 
@@ -43,6 +44,7 @@ declare module "@material-ui/core/styles/createPalette" {
     offWhite: string
     lightBlue: string
     lightGray: string
+    darkSlateBlue: string
   }
 }
 
@@ -53,7 +55,8 @@ export default createMuiTheme({
       dimGray: `${dimGray}`,
       offWhite: `${offWhite}`,
       lightBlue: `${caribbeanBlue}`,
-      lightGray: `${lightGray}`
+      lightGray: `${lightGray}`,
+      darkSlateBlue: `${darkSlateBlue}`,
     },
     primary: {
       main: `${navyBlue}`,
@@ -67,6 +70,12 @@ export default createMuiTheme({
     }
   },
   typography: {
+    body2: {
+      color: `${offWhite}`,
+      fontFamily: 'Inter',
+      fontWeight: 300,
+
+    },
     caption: {
       color: `${dimGray}`,
        fontFamily: 'Inter',

@@ -80,3 +80,13 @@ export * from "@testing-library/react";
 
 // override render method
 export { customRender as render };
+
+
+/* More functions below */
+
+//   const categoryCount = (category: string) =>
+//     someData.reduce(
+//       (acc, elem, index, arr): any =>
+//         category === elem.category ? acc + 1 : acc,
+//       0
+//     )

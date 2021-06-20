@@ -7,29 +7,35 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import { Property } from 'types/interfaces/property'
+import { PropertyData } from 'types/interfaces/property'
+
 
 interface Props {
-  property: Property
+  property: PropertyData
 }
 
-const useStyles = makeStyles((theme: Theme) => ({}))
+const useStyles = makeStyles((theme: Theme) => ({
+  card: {
+    backgroundColor: `${theme.palette.common.darkSlateBlue}`,
+    color: `${theme.palette.common.offWhite}`,
+  },
+}))
 
 export default function PropertyCard({ property }: Props) {
   const classes = useStyles()
-
+  console.log(property)
   return (
-      <Card>
+      <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             image="/static/images/cards/contemplative-reptile.jpg"
             title="Contemplative Reptile"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {property.address}
+            <Typography variant="body2">
+                 {property.fields.streetAddress}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography variant="body2">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum
               exercitationem magni quaerat culpa quisquam nulla!
             </Typography>
