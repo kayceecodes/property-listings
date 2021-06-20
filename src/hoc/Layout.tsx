@@ -35,6 +35,7 @@ export default function Layout(props: Props) {
           href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css"
           rel="stylesheet"
         />        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </Head>
       <Header />
       {children}

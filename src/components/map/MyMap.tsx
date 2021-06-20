@@ -17,6 +17,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     position: 'relative',
+    width: '100%'
   },
   markerBtn: {
     backgroundColor: 'transparent',
@@ -36,7 +37,6 @@ function MyMap({ properties, selectedProperty, setSelectedProperty }: Props) {
 
   const [viewport, setViewport] = useState({
     width: '100%',
-    /*width: 1289*/
     height: matches.sm ? 450 : 600,
     latitude: 39.9521508977735,
     longitude: -75.14393627643587,

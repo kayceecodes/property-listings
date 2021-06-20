@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { PropertyData } from 'types/interfaces/property'
-
+import Icon from '@material-ui/core/Icon';
 
 interface Props {
   property: PropertyData
@@ -23,15 +23,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function PropertyCard({ property }: Props) {
   const classes = useStyles()
+
   console.log(property)
   return (
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image="/public/assets/images/apartment-interior.jpg"
             title="Contemplative Reptile"
           />
           <CardContent>
+          <Typography variant="body2">
+                 {property.fields.price}
+            </Typography>
+            <br />
             <Typography variant="body2">
                  {property.fields.streetAddress}
             </Typography>
@@ -42,10 +47,10 @@ export default function PropertyCard({ property }: Props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
+          <Button size="small" color="secondary">
+          <Icon>favorite</Icon>
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="secondary">
             Learn More
           </Button>
         </CardActions>
