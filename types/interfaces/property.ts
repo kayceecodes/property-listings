@@ -1,3 +1,12 @@
+interface ContentfulImages {
+  fields: {
+    file: {
+      url: string
+    }
+  }
+}
+;[]
+
 export interface PropertyData {
   fields: {
     id: string
@@ -10,10 +19,14 @@ export interface PropertyData {
     latitude: number
     longitude: number
 
+    images: ContentfulImages
+
     propertyOwnerName: string
     price: string
+
     bedrooms: number
     bathrooms: number
+
     sqft: number
     carSpaces: number
 

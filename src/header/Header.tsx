@@ -5,18 +5,17 @@ import Button from '@material-ui/core/Button/Button'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { route } from 'next/dist/next-server/server/router'
+import createStyles from '@material-ui/core/styles/createStyles'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  btn: {
-    backgroundColor: '#161b22',
-    color: '#ccc',
-    font: '0.8rem Inter',
-    textTransform: 'none',
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "0.95rem",
-    }
-  },
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    linkBtns: {
+      color: '#ccc !important',
+      font: '0.9rem Inter',
+      textTransform: 'none'
+    },
+  })
+)
 
 const routes = [
   {
@@ -35,6 +34,10 @@ const routes = [
     path: '/auth/login',
     text: 'Login',
   },
+  {
+    path: '/auth/post-property',
+    text: 'Post Property'
+  }
 ]
 
 export default function Header() {
@@ -42,10 +45,10 @@ export default function Header() {
 
   return (
     <div style={{ backgroundColor: '#161b22' }}>
-      <GridContainer alignItems="center" justify="center" xs={3} padding={22}>
+      <GridContainer alignItems="center" justify="flex-end" xs={2} padding={22}>
         {routes.map((route) => (
           <Link key={route.text} href={route.path}>
-            <Button className={classes.btn}>{route.text}</Button>
+            <Button className={classes.linkBtns}>{route.text}</Button>
           </Link>
         ))}
       </GridContainer>

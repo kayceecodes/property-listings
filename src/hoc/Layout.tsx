@@ -14,10 +14,7 @@ interface Props {
   height?: string
 }
 
-const useStyles = makeStyles((theme: Theme) => ({}))
-
 export default function Layout(props: Props) {
-  const classes = useStyles()
   const { desc, keywords, bgColor, height, children } = props
 
   return (
@@ -34,8 +31,11 @@ export default function Layout(props: Props) {
         <link
           href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css"
           rel="stylesheet"
-        />        
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
       </Head>
       <Header />
       {children}

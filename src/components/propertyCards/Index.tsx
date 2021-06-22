@@ -22,7 +22,7 @@ export default function Index({ properties }: Props) {
     md: useMediaQuery(theme.breakpoints.up('md')),
     lg: useMediaQuery(theme.breakpoints.up('lg')),
     xl: useMediaQuery(theme.breakpoints.up('xl')),
-  }
+  } /* 0px     600px    960px    1280px   1920px */
 
   console.log('properties in Index - propertyCard: ', properties)
   return (
@@ -30,9 +30,12 @@ export default function Index({ properties }: Props) {
       <GridContainer
         wrap="wrap"
         xs={11}
-        md={4}
-        xl={3}
-        justify="center"
+        sm={6}
+        lg={5}
+        width={matches.lg ? '1279px' : '100%'}
+        spacing={matches.md ? 9 : 6}
+        margin={'0 auto'}
+        justify='center'
       >
         {properties.map((property: PropertyData) => (
           <Card key={property.fields.streetAddress} property={property} />

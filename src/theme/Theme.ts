@@ -7,7 +7,7 @@ const slateTan = "#b9ac92"; // 1 Background
 const slateBrown = "#4a3f35"; // 2 Seconde BG
 const goldenRodOrange = "#ffa225"; // 3 Highlight
 const antiqueWhite = "#fbe6d4"; // 4 Brighter Highlight
-const offWhite = 'rgb(247,249,250)' //Off white Background color
+const offWhite = '#f7f9fa' //Off white Background color
 // const antiquePeach = '#fbddd4';// Brighter Highlight
 const dimegray = "#6e6656";
 const dimGray = 'rgb(92,106,118)'
@@ -70,10 +70,16 @@ export default createMuiTheme({
     }
   },
   typography: {
-    body2: {
-      color: `${offWhite}`,
+    body1: {
+      color: `${offWhite}a9`,
+      fontSize: '0.85rem',
       fontFamily: 'Inter',
       fontWeight: 300,
+    },
+    body2: {
+      color: `${offWhite}bf`,
+      fontFamily: 'Inter',
+      fontWeight: 500,
 
     },
     caption: {

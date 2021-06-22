@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import PageTransition from '../src/hoc/PageTransition'
 import Layout from '../src/hoc/Layout'
 import MyMap from '@/components/map/MyMap'
@@ -43,7 +43,7 @@ interface Props {
   properties: any
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     backgroundColor: '#cacacf',
   },
