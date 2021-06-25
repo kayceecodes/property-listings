@@ -1,5 +1,9 @@
 import { MyMapType } from "./Map.test";
 
+type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
 export const mapBaseProps: MyMapType = {
     setSelectedProperty: () => {},
     selectedProperty: {

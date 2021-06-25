@@ -8,7 +8,7 @@ export const insertCommas = (value: string): string => {
 export const trimNumber = (value: string) => {
   let arr = value.split('')
   /* Count from right to left how many numbers will be replaced by a character 'm' | 'k' */
-  arr.length > 10 ? arr.splice(arr.length-11, 12, 'M') : arr.splice(4, 8, 'K')
+  arr.length > 10 ? arr.splice(arr.length - 11, 12, 'M') : arr.splice(4, 8, 'K')
 
   return arr
 }
