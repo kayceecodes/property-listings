@@ -1,3 +1,0 @@
-export {
-  addToCart
-} from "./cart"

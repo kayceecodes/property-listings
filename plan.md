@@ -55,13 +55,14 @@
     -  
 
 
-
-
-
-
-
-
 ## Finished 
     - Created reusable button from material
     - db.json in listings/map
     - functions for parsing 'k' & 'm'
+
+
+## Redux
+    Selected Property
+    - Abiblity to Remove/Clear its data
+    - Needs to show in other parts of app. In the chat
+    - 

@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography'
 import { PropertyData } from 'types/interfaces/property'
 import Icon from '@material-ui/core/Icon'
 import Button from '@material-ui/core/Button/Button'
-import GridContainer from '@/src/ui/grid/GridContainer'
-import { changeColor } from 'utils/TextColor'
+import GridContainer from '../../ui/grid/GridContainer'
+import { changeColor } from '../../../utils/TextColor'
 
 interface Props {
   property: PropertyData
@@ -32,7 +32,7 @@ export default function PropertyCard({ property }: Props) {
 
   console.log('Images in Card: ', property.fields.images)
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} role='list-item'>
       <CardActionArea>
         <CardMedia
           image={
@@ -53,8 +53,7 @@ export default function PropertyCard({ property }: Props) {
             >
               {property.fields.price}
               {
-                <small style={{ color: 
-                          changeColor(property.fields.type, colors, cases) }}>
+                <small style={{ color: changeColor(property.fields.type, colors, cases) }}>
                   {property.fields.type}
                 </small>
               }

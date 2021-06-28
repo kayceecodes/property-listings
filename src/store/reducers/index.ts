@@ -1,11 +1,11 @@
 //  export defaults allows for you to rename your imports
 import { combineReducers } from 'redux';
-import _reducer from './_reducer';
+import property_reducer from './property_reducer';
 
-export {initialState} from './_reducer';
+export {initialState} from './property_reducer';
 
 const rootReducer = combineReducers({
-    reducer: _reducer
+    property: property_reducer
 }); 
 
 export default rootReducer;

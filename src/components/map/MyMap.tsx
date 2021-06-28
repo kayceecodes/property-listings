@@ -55,7 +55,7 @@ function MyMap({ properties, selectedProperty, setSelectedProperty }: Props) {
       mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
       mapStyle="mapbox://styles/leighhalliday/ckhjaksxg0x2v19s1ovps41ef"
     >
-      {properties.map((property: PropertyData, i) => (
+      {properties.map((property, index) => (
         <div key={property.fields.id}>
           <Marker latitude={property.fields.latitude} longitude={property.fields.longitude}>
             <button

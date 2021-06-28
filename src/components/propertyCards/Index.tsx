@@ -38,7 +38,9 @@ export default function Index({ properties }: Props) {
         justify='center'
       >
         {properties.map((property: PropertyData) => (
-          <Card key={property.fields.streetAddress} property={property} />
+          <Card key={property.fields.streetAddress}
+          data-testid='card'
+          property={property} />
         ))}
       </GridContainer>
     </div>
