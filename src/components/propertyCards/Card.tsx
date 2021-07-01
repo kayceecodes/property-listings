@@ -6,14 +6,19 @@ import CardActions from '@material-ui/core/CardActions/CardActions'
 import CardContent from '@material-ui/core/CardContent/CardContent'
 import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import { PropertyData } from 'types/interfaces/property'
+import { Property } from '../../../types/interfaces/property'
 import Icon from '@material-ui/core/Icon'
 import Button from '@material-ui/core/Button/Button'
 import GridContainer from '../../ui/grid/GridContainer'
 import { changeColor } from '../../../utils/TextColor'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { PropertyState } from '../../store/reducers/property_reducer'
+import { Dispatch } from 'redux'
+import { selectProperty } from '../../store/actions/actionCreators'
 
 interface Props {
-  property: PropertyData
+  property: Property
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const cases = ['Apartment', 'House', 'Condo']
@@ -27,49 +32,59 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export default function PropertyCard({ property }: Props) {
+export default function PropertyCard({ property, setOpen }: Props) {
   const classes = useStyles()
 
-  console.log('Images in Card: ', property.fields.images)
+  const selectedProperty: Property = useSelector(
+    (state: PropertyState) => state.selectedProperty,
+    shallowEqual
+  )
+  const dispatch: Dispatch<any> = useDispatch()
+
+  // console.log('Images in Card: ', property.images)
   return (
-    <Card className={classes.card} role='list-item'>
+    <Card className={classes.card} role="list-item">
       <CardActionArea>
         <CardMedia
           image={
-            property.fields.images
-              ? property.fields.images[0].fields.file.url
+            property.images
+              ? property.images[0].fields.file.url
               : 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
           }
           //  '../../../public/assets/images/image-not-available.png'}
           style={{ height: '220px' }}
           title="Property Image(s)"
         />
-        <CardContent>
+        <CardContent onClick={(e: any) => {}}>
           <Typography variant="body2" component="div">
             <GridContainer
               width="100%"
               justify="space-between"
               alignItems="center"
             >
-              {property.fields.price}
+              {property.price}
               {
-                <small style={{ color: changeColor(property.fields.type, colors, cases) }}>
-                  {property.fields.type}
+                <small
+                  style={{
+                    color: changeColor(property.type, colors, cases),
+                  }}
+                >
+                  {property.type}
                 </small>
               }
               <small>
-                {property.fields.sqft}
+                {property.sqft}
                 <strong> sqft</strong>
               </small>
             </GridContainer>
           </Typography>
           <br />
           <Typography variant="body2">
-            {property.fields.streetAddress +
+            {property.streetAddress +
               ' ' +
-              property.fields.city +
+              property.city +
               ' ' +
-              property.fields.state}
+              property.state}
           </Typography>
           <Typography variant="body1">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum
@@ -81,7 +96,14 @@ export default function PropertyCard({ property }: Props) {
         <Button size="small" color="secondary">
           <Icon>favorite</Icon>
         </Button>
-        <Button size="small" color="secondary">
+        <Button
+          size="small"
+          color="secondary"
+          onClick={(event: any) => {
+            setOpen(true)
+            dispatch(selectProperty(property))
+          }}
+        >
           Learn More
         </Button>
       </CardActions>

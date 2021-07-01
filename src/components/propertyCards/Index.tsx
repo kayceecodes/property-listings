@@ -1,13 +1,15 @@
-import GridContainer from '@/src/ui/grid/GridContainer'
+import GridContainer from '../../ui/grid/GridContainer'
 import { Theme, makeStyles } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import React from 'react'
-import { PropertyData } from '../../../types/interfaces/property'
+// import { PropertyData } from '../../../types/interfaces/property'
 import Card from './Card'
-import theme from '@/src/theme/Theme'
+import theme from '../../theme/Theme'
+import { Property } from '../../../types/interfaces/property'
 interface Props {
   properties: any
-}
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  }
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: '100%',
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export default function Index({ properties }: Props) {
+export default function Index({ properties, setOpen }: Props) {
   const classes = useStyles()
   const matches = {
     sm: useMediaQuery(theme.breakpoints.up('sm')),
@@ -26,7 +28,7 @@ export default function Index({ properties }: Props) {
 
   console.log('properties in Index - propertyCard: ', properties)
   return (
-    <div className={classes.container}>
+    <div className={classes.container} data-testid='property-cards-container'>
       <GridContainer
         wrap="wrap"
         xs={11}
@@ -37,9 +39,10 @@ export default function Index({ properties }: Props) {
         margin={'0 auto'}
         justify='center'
       >
-        {properties.map((property: PropertyData) => (
-          <Card key={property.fields.streetAddress}
+        {properties.map((property: Property) => (
+          <Card key={property.streetAddress}
           data-testid='card'
+          setOpen={setOpen}
           property={property} />
         ))}
       </GridContainer>

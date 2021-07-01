@@ -4,6 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import PageTransition from './PageTransition'
 import { PageAnimations } from '../../types/interfaces/animation'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 interface Props {
   children: ReactNode[] | ReactNode
@@ -16,7 +17,8 @@ interface Props {
 
 export default function Layout(props: Props) {
   const { desc, keywords, bgColor, height, children } = props
-
+  const paths = ['/', '/listings', '/auth/sign-up', '/auth/login', '/post-property']
+  const router = useRouter()
   return (
     <div style={{ backgroundColor: bgColor, height: height }}>
       <Head>
@@ -37,7 +39,7 @@ export default function Layout(props: Props) {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </Head>
-      <Header />
+     {paths.some((element) => router.asPath === element) && <Header />}
       {children}
       {/* <Footer /> */}
     </div>

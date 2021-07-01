@@ -11,8 +11,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     linkBtns: {
       color: '#ccc !important',
-      font: '0.9rem Inter',
-      textTransform: 'none'
+      font: '0.78rem Inter',
+      textTransform: 'none',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '0.9rem',
+      },
     },
   })
 )
@@ -45,7 +48,7 @@ export default function Header() {
 
   return (
     <div style={{ backgroundColor: '#161b22' }}>
-      <GridContainer alignItems="center" justify="flex-end" xs={2} padding={22}>
+      <GridContainer alignItems="center" justify="space-between" xs={2} padding={22}>
         {routes.map((route) => (
           <Link key={route.text} href={route.path}>
             <Button className={classes.linkBtns}>{route.text}</Button>

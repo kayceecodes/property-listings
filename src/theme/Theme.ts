@@ -10,7 +10,7 @@ const antiqueWhite = "#fbe6d4"; // 4 Brighter Highlight
 const offWhite = '#f7f9fa' //Off white Background color
 // const antiquePeach = '#fbddd4';// Brighter Highlight
 const dimegray = "#6e6656";
-const dimGray = 'rgb(92,106,118)'
+const dimGray = '#363e45'
 
 const brightMudBrown = '#2e2210'; // Highlight
 // const saddleBrown = '#643c0f'
@@ -82,10 +82,13 @@ export default createMuiTheme({
       fontWeight: 500,
 
     },
+    h3: {
+      color: '', 
+    },
     caption: {
       color: `${dimGray}`,
        fontFamily: 'Inter',
-       fontWeight: 300,
+       fontWeight: 500,
        fontSize: '0.9rem',
        textTransform: 'none',
     },

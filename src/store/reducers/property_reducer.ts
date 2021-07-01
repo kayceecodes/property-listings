@@ -1,13 +1,13 @@
-import { Property } from 'types/interfaces/property'
+import { Property } from '../../../types/interfaces/property'
 import { SelectPropertyAction } from '../actions/actionCreators'
 import { ActionTypes } from '../actions/actionTypes'
 
-export interface State {
-  property: Property
+export interface PropertyState {
+  selectedProperty: Property
 }
 
-export const initialState: State = {
-  property: {
+export const initialState: PropertyState = {
+  selectedProperty: {
     id: '',
 
     streetAddress: '',
@@ -42,6 +42,7 @@ const property_reducer = (state = initialState, action: SelectPropertyAction) =>
     case ActionTypes.SELECT_PROPERTY:
       return {
         ...state,
+        selectedProperty: action.selectedProperty
       }
     default:
       return state

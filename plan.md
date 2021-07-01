@@ -66,3 +66,19 @@
     - Abiblity to Remove/Clear its data
     - Needs to show in other parts of app. In the chat
     - 
+
+
+## State & Components
+    Listings
+        PropertyModal
+        MyMap
+            -setOpen
+            -properties
+            *SelectedProperty
+            *SelectProperty
+        Index
+            -setOpen
+            -properties
+            Cards
+                *SelectedProperty
+                *SelectProperty

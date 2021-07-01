@@ -4,13 +4,13 @@ import { Property } from '../../../types/interfaces/property'
 
 export interface SelectPropertyAction {
     type: typeof ActionTypes.SELECT_PROPERTY,
-    property: Property
+    selectedProperty: Property
 }
 
-export function selectProperty(property: Property) {
+export function selectProperty(selectedProperty: Property) {
     const action: SelectPropertyAction = {
         type: ActionTypes.SELECT_PROPERTY,
-        property 
+        selectedProperty 
     }
 
     return action

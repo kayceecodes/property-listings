@@ -1,40 +1,60 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl'
 import Image from 'next/image'
 import { Paper, Typography, useMediaQuery } from '@material-ui/core'
-import useTheme from "@material-ui/core/styles/useTheme";
-import { PropertyData } from 'types/interfaces/property'
+import useTheme from '@material-ui/core/styles/useTheme'
+import { Property } from '../../../types/interfaces/property'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { trimNumber } from '../../../utils/Parse'
+import { Dispatch } from 'redux'
+import { connect, shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { selectProperty } from '../../store/actions/actionCreators'
+import { PropertyState } from '../../store/reducers/property_reducer'
 
 interface Props {
-  // properties: PropertyData[]
   properties: any
-  selectedProperty: PropertyData
-  setSelectedProperty: React.Dispatch<React.SetStateAction<PropertyData>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
+
+const Popups = ({ selectedProperty, setPopupStatus, Status }) => (
+  <Popup
+    latitude={selectedProperty.latitude}
+    longitude={selectedProperty.longitude}
+    onClose={() => {
+      setPopupStatus(Status.hide)
+    }}
+  >
+    <Typography variant="caption">
+      <small>
+        {selectedProperty.price} <br />
+        {'bd: ' + selectedProperty.bedrooms + ' '}
+        {' sqft: ' + selectedProperty.sqft}
+      </small>
+    </Typography>
+  </Popup>
+)
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     position: 'relative',
-    width: '100%'
+    width: '100%',
   },
   markerBtn: {
     backgroundColor: 'transparent',
     border: '0 solid transparent',
-    '&:hover': {cursor: 'pointer'},
+    '&:hover': { cursor: 'pointer' },
   },
   priceTags: {
     backgroundColor: '#fdf0db',
   },
 }))
 
-function MyMap({ properties, selectedProperty, setSelectedProperty }: Props) {
+function MyMap({ properties, setOpen }: Props) {
   const classes = useStyles()
-  const theme = useTheme();
-  const matches = {sm: useMediaQuery(theme.breakpoints.up("sm"))}; /* If query matches sm,md,lg or xl then we'll use the 'matches' object to change styles
-        xs: 0, sm: 600 md: 960, lg:1280px, xl1920px*/
-
+  const theme = useTheme()
+  const matches = {
+    sm: useMediaQuery(theme.breakpoints.up('sm')),
+  } /*xs:0, sm:600 md:960, lg:1280px, xl:1920px*/
   const [viewport, setViewport] = useState({
     width: '100%',
     height: matches.sm ? 450 : 600,
@@ -42,12 +62,17 @@ function MyMap({ properties, selectedProperty, setSelectedProperty }: Props) {
     longitude: -75.14393627643587,
     zoom: 12,
   })
-  const [status, setStatus] = useState('hide')
-  enum PopoverStatus {
-    show = 'show',
-    hide = 'hide',
-  }
+  const [popup, setPopupStatus] = useState('hide')
 
+  const selectedProperty: any = useSelector(
+    (state: any) => state.property.selectedProperty,
+    shallowEqual
+  )
+  const dispatch: Dispatch<any> = useDispatch()
+  enum Status {
+    hide = 'hide',
+    show = 'show',
+  }
   return (
     <ReactMapGL
       {...viewport}
@@ -55,17 +80,22 @@ function MyMap({ properties, selectedProperty, setSelectedProperty }: Props) {
       mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
       mapStyle="mapbox://styles/leighhalliday/ckhjaksxg0x2v19s1ovps41ef"
     >
-      {properties.map((property, index) => (
-        <div key={property.fields.id}>
-          <Marker latitude={property.fields.latitude} longitude={property.fields.longitude}>
+      {properties.map((property: Property, index) => (
+        <div key={property.id}>
+          <Marker
+            latitude={property.latitude}
+            longitude={property.longitude}
+          >
             <button
               className={classes.markerBtn}
               onMouseOver={() => {
-                setStatus(PopoverStatus.show)
-                setSelectedProperty(property)
+                setPopupStatus(Status.show)
+                dispatch(selectProperty(property))
               }}
-              onClick={(e) => {
+              onClick={(e: any) => {
                 e.preventDefault()
+                setOpen(true)
+                dispatch(selectProperty(property))
               }}
             >
               <Image
@@ -75,28 +105,18 @@ function MyMap({ properties, selectedProperty, setSelectedProperty }: Props) {
               />
               <br />
               <Paper classes={{ root: classes.priceTags }}>
-                <small>{trimNumber(property.fields.price)}</small>
+                <small>{trimNumber(property.price)}</small>
               </Paper>
             </button>
           </Marker>
         </div>
       ))}
-      {status === 'show' && (
-        <Popup
-          latitude={selectedProperty.fields.latitude}
-          longitude={selectedProperty.fields.longitude}
-          onClose={() => {
-            setStatus(PopoverStatus.hide)
-          }}
-        >
-          <Typography variant="caption">
-            <small data-testid="small-textbox" role="textbox">
-              {selectedProperty.fields.price} <br />
-              {'bd: ' + selectedProperty.fields.bedrooms + ' '}
-              {' sqft: ' + selectedProperty.fields.sqft}
-            </small>
-          </Typography>
-        </Popup>
+      {popup === Status.show && (
+        <Popups
+          setPopupStatus={setPopupStatus}
+          Status={Status}
+          selectedProperty={selectedProperty}
+        />
       )}
     </ReactMapGL>
   )

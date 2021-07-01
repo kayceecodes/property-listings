@@ -36,8 +36,8 @@ export interface Property {
   petFriendly: string
 }
 
-export interface PropertyData {
-  fields: Property
-}
+// export interface PropertyData {
+//   fields: Property
+// }
 
-export type PropertiesData = PropertyData[]
+// export type PropertiesData = PropertyData[]
