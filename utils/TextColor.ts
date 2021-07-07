@@ -10,4 +10,4 @@ const cases = ['Apartment', 'House', 'Condo']
 const colors = ['#19c89f', '#1ac1dd', '#f70070']
 
 
-console.log(changeColor('Condo', colors, cases))
+// console.log(changeColor('Condo', colors, cases))

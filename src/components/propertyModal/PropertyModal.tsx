@@ -14,6 +14,9 @@ import Image from 'next/image'
 
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
+import { Typography } from '@material-ui/core'
+import Box from '@material-ui/core/Box/Box'
+import { changeColor } from 'utils/TextColor'
 
 interface Props {
   open: boolean
@@ -21,19 +24,18 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  carouselImg: {
-  },
-  imgWrapper: {
-    // overflow: 'hidden',
-    // width: '300px',
-    // objectFit: 'cover',
-    // height: '155px',
+  carouselWrapper: {
+    textAlign: 'center',
+    paddingLeft: '0',
   },
   paper: {
     padding: '3px 3px 15px',
-    width: '90%',
-    [theme.breakpoints.up('md')]: {
+    width: '97%',
+    fontFamily: 'Roboto',
+    margin: '40px auto 0px',
+    [theme.breakpoints.up('sm')]: {
       maxWidth: '550px',
+      margin: '80px auto 0px',
     },
   },
   summary: {
@@ -44,28 +46,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MyCarousel = ({ selectedProperty }) => {
   const classes = useStyles()
   return (
-    <Carousel showArrows={true}>
-      <div className={classes.imgWrapper}>
-        <img
-          className={classes.carouselImg}
-          src={'https://' + selectedProperty.images[0]?.fields.file.url}
-        />
-      </div>
-      <div className={classes.imgWrapper}>
-        <img
-          className={classes.carouselImg}
-          src={'https://' + selectedProperty.images[1]?.fields.file.url}
-        />
-      </div>
-      <div className={classes.imgWrapper}>
-        <img
-          className={classes.carouselImg}
-          src={'https://' + selectedProperty.images[2]?.fields.file.url}
-        />
-      </div>
-    </Carousel>
+    <div className={classes.carouselWrapper}>
+      <Carousel showArrows={true}>
+        <div>
+          <img src={'https://' + selectedProperty.images[0]?.fields.file.url} />
+        </div>
+        <div>
+          <img src={'https://' + selectedProperty.images[1]?.fields.file.url} />
+        </div>
+        <div>
+          <img src={'https://' + selectedProperty.images[2]?.fields.file.url} />
+        </div>
+      </Carousel>
+    </div>
   )
 }
+
+const cases = ['Apartment', 'House', 'Condo']
+const colors = ['#19c89f', '#1ac1dd', '#f70070']
 
 export default function PropertyModal({ open, handleClose }: Props) {
   const classes = useStyles()
@@ -88,16 +86,29 @@ export default function PropertyModal({ open, handleClose }: Props) {
       aria-describedby="selected property modal"
     >
       <Paper className={classes.paper + ' ' + classes.summary}>
-        <GridContainer direction={matches.md ? 'row' : 'column'} spacing={1}>
+        <GridContainer direction={matches.md ? 'column' : 'column'} spacing={1}>
           {/* <Image width={350} height={300} src={'https://' + selectedProperty.images[0]?.fields.file.url} /> */}
           <MyCarousel selectedProperty={selectedProperty} />
-          <GridContainer justify="space-between" spacing={1}>
+
+          <Box px={3}>
+            <GridContainer justify="space-between">
+              <Typography variant="body2">
+                <strong>{selectedProperty.streetAddress}</strong>
+                <div>{selectedProperty.price}</div>
+              </Typography>
+              <span
+                style={{
+                  color: changeColor(selectedProperty.type, colors, cases),
+                }}
+              >
+                {selectedProperty.type}
+              </span>
+            </GridContainer>
+          </Box>
+          <GridContainer justify="space-between" padding={'0 25px'}>
             <span>bd: {selectedProperty.bedrooms}</span>
             <span>sqft: {selectedProperty.sqft}</span>
           </GridContainer>
-          <strong>{selectedProperty.streetAddress}</strong>
-          <div>{selectedProperty.type}</div>
-          <div>{selectedProperty.price}</div>
         </GridContainer>
       </Paper>
     </Modal>

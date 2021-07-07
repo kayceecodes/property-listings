@@ -38,7 +38,7 @@ const routes = [
     text: 'Login',
   },
   {
-    path: '/auth/post-property',
+    path: '/post-property',
     text: 'Post Property'
   }
 ]

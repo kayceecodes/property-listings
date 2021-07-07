@@ -6,6 +6,7 @@ interface ContentfulImages {
   }
 }
 
+type PetFriendly = "No Pets" | "no pets" | "Cats Only" | "cats only" | "Yes" | "yes"
 export interface Property {
   id: string
 
@@ -33,7 +34,7 @@ export interface Property {
   daysSpotted: number
   yearBuilt: number
 
-  petFriendly: string
+  petFriendly: PetFriendly
 }
 
 // export interface PropertyData {

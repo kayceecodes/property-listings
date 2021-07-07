@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: `${theme.palette.common.offWhite}`,
     border: '2px solid #ffffff09',
   },
+  favorite: {
+    color: '#f05454'
+  }
 }))
 
 export default function PropertyCard({ property, setOpen }: Props) {
@@ -43,7 +46,7 @@ export default function PropertyCard({ property, setOpen }: Props) {
 
   // console.log('Images in Card: ', property.images)
   return (
-    <Card className={classes.card} role="list-item">
+    <Card className={classes.card} role="listitem">
       <CardActionArea>
         <CardMedia
           image={
@@ -56,7 +59,7 @@ export default function PropertyCard({ property, setOpen }: Props) {
           title="Property Image(s)"
         />
         <CardContent onClick={(e: any) => {}}>
-          <Typography variant="body2" component="div">
+          <Typography variant="body1" component="div">
             <GridContainer
               width="100%"
               justify="space-between"
@@ -79,11 +82,11 @@ export default function PropertyCard({ property, setOpen }: Props) {
             </GridContainer>
           </Typography>
           <br />
-          <Typography variant="body2">
+          <Typography variant="subtitle2">
             {property.streetAddress +
               ' ' +
               property.city +
-              ' ' +
+              ', ' +
               property.state}
           </Typography>
           <Typography variant="body1">
@@ -93,7 +96,7 @@ export default function PropertyCard({ property, setOpen }: Props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="secondary">
+        <Button size="small" className={classes.favorite}>
           <Icon>favorite</Icon>
         </Button>
         <Button

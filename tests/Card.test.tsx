@@ -50,9 +50,9 @@ test('check if the city a property-card is showing up', async () => {
   renderUI()
 
   await waitFor(() => {
-    expect(screen.getByRole(/list-item/)).toBeInTheDocument()
+    expect(screen.getByRole(/listitem/)).toBeInTheDocument()
   })
-})
+}) 
 
 test('modal pops up when you click Learn-More btn', () => {
   renderUI()

@@ -18,8 +18,7 @@ interface Container {
   spacing: GridSpacing
   wrap: GridWrap
   zeroMinWidth: boolean
-  children: ReactNode[]
-}
+  children: ReactNode[] | ReactNode}
 
 interface Item {
   xs: number
@@ -55,20 +54,32 @@ export default function ContainItems(props: Partial<Props>) {
         padding: props.padding,
       }}
     >
-      {props.children?.map((item, index) => (
+        {Array.isArray(props.children) ? (
+        props.children?.map((item, index) => (
+          <Grid
+            key={index}
+            item
+            xs={props.xs as GridSize}
+            sm={props.sm as GridSize}
+            md={props.md as GridSize}
+            lg={props.lg as GridSize}
+            zeroMinWidth={props.zeroMinWidth ?? false}
+          >
+            {item}
+          </Grid>
+        ))
+      ) : (
         <Grid
-          key={index}
           item
           xs={props.xs as GridSize}
           sm={props.sm as GridSize}
           md={props.md as GridSize}
           lg={props.lg as GridSize}
-          xl={props.xl as GridSize}
           zeroMinWidth={props.zeroMinWidth ?? false}
         >
-          {item}
+          {props.children}
         </Grid>
-      ))}
+      )}
     </Grid>
   )
 }

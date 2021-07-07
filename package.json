@@ -22,6 +22,7 @@
     "@types/sass": "^1.16.0",
     "contentful": "^8.4.2",
     "faker": "^5.5.3",
+    "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
     "jsdom": "^16.6.0",
     "json-server": "^0.16.3",

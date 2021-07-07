@@ -3,13 +3,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import PageTransition from '../src/hoc/PageTransition'
 import Layout from '../src/hoc/Layout'
 import MyMap from '../src/components/map/MyMap'
-// import data from './data/db.json'
 import PropertyCards from '../src/components/propertyCards/Index'
 import { PageAnimations } from 'types/interfaces/animation'
 // import { PropertyData } from 'types/interfaces/property'
-import Modal from '@material-ui/core/Modal/Modal'
-import Popover from '@material-ui/core/Popover/Popover'
-import Paper from '@material-ui/core/Paper/Paper'
 import PropertyModal from '../src/components/propertyModal/PropertyModal'
 
 var contentful = require('contentful')
@@ -59,11 +55,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-
 export default function ListingsPage(props: Props) {
-  // const { pageAnimations, pageStyle } = props
+  const { pageAnimations, pageStyle } = props
   // const classes = useStyles()
   const [open, setOpen] = useState<boolean>(false)
+
   const handleClose = () => setOpen(false)
 
   const properties = props.properties.map((property) => property.fields)
@@ -72,21 +68,20 @@ export default function ListingsPage(props: Props) {
 
   return (
     <Layout>
-      {/* <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}> */}
-      <PropertyModal
-      open={open} handleClose={handleClose} />
-      <MyMap
-        // selectedProperty={selectedProperty}
-        // setSelectedProperty={setSelectedProperty}
-        setOpen={setOpen}
-        properties={properties}
-      />
-      <PropertyCards
-        // setSelectedProperty={setSelectedProperty}
-        setOpen={setOpen}
-        properties={properties}
-      />
-      {/* </PageTransition> */}
+      <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
+        <PropertyModal open={open} handleClose={handleClose} />
+        <MyMap
+          // selectedProperty={selectedProperty}
+          // setSelectedProperty={setSelectedProperty}
+          setOpen={setOpen}
+          properties={properties}
+        />
+        <PropertyCards
+          // setSelectedProperty={setSelectedProperty}
+          setOpen={setOpen}
+          properties={properties}
+        />
+      </PageTransition>
     </Layout>
   )
 }
