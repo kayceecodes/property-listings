@@ -46,7 +46,6 @@ const renderUI = (props?: CardType) =>
   render(<Card {...baseProps} {...props} />, {})
 
 test('check if the city a property-card is showing up', async () => {
-  // render(<MyMap {...baseProps} />, {})
   renderUI()
 
   await waitFor(() => {

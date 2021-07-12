@@ -72,3 +72,10 @@ export function convertNameToHandle(itemName: string) {
 
     return ''
   }
+
+
+  export function uppercaseFirst(string) {
+    return string[0].toUpperCase() + string.slice(1)
+  }
+
+  // console.log(uppercaseFirst('hello'))

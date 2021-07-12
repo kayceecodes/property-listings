@@ -6,7 +6,7 @@ interface ContentfulImages {
   }
 }
 
-type PetFriendly = "No Pets" | "no pets" | "Cats Only" | "cats only" | "Yes" | "yes"
+export type PetFriendly = "No Pets" | "no pets" | "Cats Only" | "cats only" | "Yes" | "yes"
 export interface Property {
   id: string
 

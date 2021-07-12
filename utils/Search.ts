@@ -24,3 +24,17 @@ console.log('Prefix: ', prefix)
     console.log("findItemByPath -> Found Bracelet ", foundItem);
     return foundItem
   };
+
+
+  function countBoomerangs(arr) {
+    let counter = 0 
+    arr.forEach((val, i) => {
+        if(arr[i + 2] === val) {
+          counter++
+        }
+    })
+    
+    return counter
+  }
+
+  console.log(countBoomerangs([2,1,2,1,5,1, 5]))

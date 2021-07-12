@@ -3,6 +3,8 @@ import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 
 const arcBlue = '#0B72B9'
 const lightGray = '#eaeaea'
+const slateRed = '#982414'
+const cream = "#efefef"
 const slateTan = '#b9ac92' // 1 Background
 const slateBrown = '#4a3f35' // 2 Seconde BG
 const goldenRodOrange = '#ffa225' // 3 Highlight
@@ -11,7 +13,7 @@ const offWhite = '#f4f7f8' //Off white Background color
 // const antiquePeach = '#fbddd4';// Brighter Highlight
 const dimegray = '#6e6656'
 const dimGray = '#363e45'
-
+const slateWhite = '#ccc'
 const brightMudBrown = '#2e2210' // Highlight
 // const saddleBrown = '#643c0f'
 // const darkSaddleBrown = '#3a2000';
@@ -39,12 +41,14 @@ declare module '@material-ui/core/styles/createTypography' {
 
 declare module '@material-ui/core/styles/createPalette' {
   interface CommonColors {
+    cream: string
     navyBlue: string
     dimGray: string
     offWhite: string
     lightBlue: string
     lightGray: string
     darkSlateBlue: string
+    slateRed: string
   }
 }
 
@@ -64,9 +68,10 @@ export default createMuiTheme({
       lightBlue: `${caribbeanBlue}`,
       lightGray: `${lightGray}`,
       darkSlateBlue: `${darkSlateBlue}`,
+      slateRed:  `${slateRed}`
     },
     primary: {
-      main: `${navyBlue}`,
+      main: `${darkSlateBlue}`,
       // main: white,
     },
     secondary: {
@@ -82,7 +87,7 @@ export default createMuiTheme({
       fontSize: '0.88rem',
       fontFamily: 'Inter',
       fontWeight: 400,
-      lineHeight: 1.35,
+      lineHeight: 1.45,
       [breakpoints.up('md')]: {
         fontSize: '1rem',
       },
@@ -96,12 +101,10 @@ export default createMuiTheme({
         fontSize: '1.05rem',
       },
     },
-    h5: {
-      color: `${offWhite}`,
-    },
-    h6: {
-      color:  `${offWhite}`
-    },
+    h3: {color: slateWhite},
+    h4: {color: cream},
+    h5: {color: offWhite},
+    h6: {color:  offWhite},
     caption: {
       color: `${dimGray}`,
       fontFamily: 'Inter',

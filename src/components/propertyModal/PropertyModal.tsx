@@ -92,7 +92,7 @@ export default function PropertyModal({ open, handleClose }: Props) {
 
           <Box px={3}>
             <GridContainer justify="space-between">
-              <Typography variant="body2">
+              <Typography variant="body2" component="div">
                 <strong>{selectedProperty.streetAddress}</strong>
                 <div>{selectedProperty.price}</div>
               </Typography>

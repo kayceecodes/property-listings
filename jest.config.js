@@ -4,9 +4,10 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
-    "^@/component(.*)$": "<rootDir>/src/component/$1",
+    "^@/components(.*)$": "<rootDir>/src/components/$1",
     "^@/theme(.*)$": "<rootDir>/src/theme/$1",
-    "^@/src(.*)$": "<rootDir>/src/$1"
+    "^@/src(.*)$": "<rootDir>/src/$1",
+    "^@/utils(.*)$": "<rootDir>/utils/$1"
   }
 };
 process.env = Object.assign(process.env, {
