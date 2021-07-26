@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ChangeEvent, ReactElement } from 'react'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem/MenuItem'
@@ -15,8 +15,7 @@ import TextField from '@material-ui/core/TextField/TextField'
 
 interface Props {
   value: string | number
-  handleChange(e: React.ChangeEvent<any>): void;
-  <T_1 = string | React.ChangeEvent<any>>(field: T_1): T_1 extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
+  handleChange: { (e: ChangeEvent<any>): void; <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any> ? void : (e: string | ChangeEvent<any>) => void; }
   inputName: string
   name: string
 }

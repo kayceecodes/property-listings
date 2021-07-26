@@ -11,33 +11,33 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme) => ({
-    alertText: {
-        color: lighten(theme.palette.common.slateRed, 0.1),
-      },
-      label: {
-        color: lighten(theme.palette.common.navyBlue, 0.5),
-        fontSize: '0.75rem',
-      },
-      formControl: {
-        backgroundColor: lighten(colors.cream, 0.3),
-        // backgroundColor: 'white',
-        padding: '35px 50px',
-        border: `3px solid ${theme.palette.common.navyBlue}`,
-        borderRadius: '10px',
-        [theme.breakpoints.up('sm')]: {
-          width: '580px',
-          padding: '35px 45px',
-        },
-      },
-      submitBtn: {
-        width: '120px',
-        margin: '15px auto 0',
-      },
-      text: {
-        fontSize: '0.75rem',
-        [theme.breakpoints.up('sm')]: {
-          fontSize: '0.95rem',
-        },
+    // alertText: {
+    //     color: lighten(theme.palette.common.slateRed, 0.1),
+    //   },
+    //   label: {
+    //     color: lighten(theme.palette.common.navyBlue, 0.5),
+    //     fontSize: '0.75rem',
+    //   },
+    //   formControl: {
+    //     backgroundColor: lighten(color.cream, 0.3),
+    //     // backgroundColor: 'white',
+    //     padding: '35px 50px',
+    //     border: `3px solid ${theme.palette.common.navyBlue}`,
+    //     borderRadius: '10px',
+    //     [theme.breakpoints.up('sm')]: {
+    //       width: '580px',
+    //       padding: '35px 45px',
+    //     },
+    //   },
+    //   submitBtn: {
+    //     width: '120px',
+    //     margin: '15px auto 0',
+    //   },
+    //   text: {
+    //     fontSize: '0.75rem',
+    //     [theme.breakpoints.up('sm')]: {
+    //       fontSize: '0.95rem',
+    //     },
 }))
 
 
@@ -45,7 +45,7 @@ export default function TextFieldInput(props: Props) {
     const classes = useStyles()
     return (
         <div>
-            {props.formData.type === 'text' && (
+            {/* {props.formData.type === 'text' && (
               <React.Fragment key={props.formData.label}>
                 <SectionMargin m="20px" />
 
@@ -68,7 +68,7 @@ export default function TextFieldInput(props: Props) {
                 ) : null}
                 <SectionMargin m="5px" />
               </React.Fragment>
-            )}
+            )} */}
         </div>
     )
 }

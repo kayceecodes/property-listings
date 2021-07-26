@@ -33,7 +33,7 @@ export const initialState: PropertyState = {
     daysSpotted: 0,
     yearBuilt: 0,
     
-    petFriendly: '',
+    petFriendly: 'No Pets',
   },
 }
 
