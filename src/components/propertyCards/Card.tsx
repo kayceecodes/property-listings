@@ -1,5 +1,5 @@
 import React from 'react'
-import { lighten, makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea'
 import CardActions from '@material-ui/core/CardActions/CardActions'
@@ -15,6 +15,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { PropertyState } from '../../store/reducers/property_reducer'
 import { Dispatch } from 'redux'
 import { selectProperty } from '../../store/actions/actionCreators'
+import { lighten } from '@material-ui/core/styles/colorManipulator'
 
 interface Props {
   property: Property
@@ -46,7 +47,7 @@ export default function PropertyCard({ property, setOpen }: Props) {
 
   // console.log('Images in Card: ', property.images)
   return (
-    <Card className={classes.card} role="listitem">
+    <Card classes={{root: classes.card}} className={classes.card} role="listitem">
       <CardActionArea>
         <CardMedia
           image={

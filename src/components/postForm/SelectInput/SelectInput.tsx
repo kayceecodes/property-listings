@@ -11,11 +11,14 @@ import {
 } from '../../../../utils/Constants'
 import { PostProperty } from '../PostPropertyForm'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
+import TextField from '@material-ui/core/TextField/TextField'
 
 interface Props {
-  values: PostProperty
-  handleChange: (field: string) => void
+  value: string | number
+  handleChange(e: React.ChangeEvent<any>): void;
+  <T_1 = string | React.ChangeEvent<any>>(field: T_1): T_1 extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
   inputName: string
+  name: string
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -78,26 +81,43 @@ export default function SelectInput(props: Props) {
   switch (props.inputName) {
     case 'State':
       inputElement = (
-        <Select
-          defaultValue="Alabama"
-          value={props.values.state}
-          onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-            props.handleChange('state')
-          }
-          label={props.inputName}
-          classes={{ root: classes.underline }}
-        >
-          {StateMenuItems}
-        </Select>
+        <TextField
+        id="role"
+        select
+        label="Role"
+        classes={{root: classes.underline }}
+        value={props.value}
+        onChange={props.handleChange}
+      
+        helperText="Please select your role"
+        margin="normal"
+        variant="outlined"
+      >
+        {StateMenuItems}
+      </TextField>
+        // <Select
+        //   // defaultValue="Alabama"
+        //   value={props.value}
+        //   name={props.name}
+        //   onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
+        //     // props.handleChange
+        //     props.handleChange(event.target.value as string)
+        //   }
+        //   label={props.inputName}
+        //   classes={{ root: classes.underline }}
+        // >
+        //   {StateMenuItems}
+        // </Select>
       )
       break
     case 'Bedrooms':
       inputElement = (
         <Select
-          defaultValue={1}
-          value={props.values.bedrooms}
+          // defaultValue={1}
+          // value={props.value}
+          name={props.name}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-            props.handleChange('bedrooms')
+            props.handleChange
           }
           label={props.inputName}
           classes={{ root: classes.underline }}
@@ -108,11 +128,13 @@ export default function SelectInput(props: Props) {
     case 'Bathrooms':
       inputElement = (
         <Select
-          defaultValue={1}
-          value={props.values.bathrooms}
-          onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-            props.handleChange('bathrooms')
-          }
+          // defaultValue={1}
+          // value={props.value}
+          name={props.name}
+          // onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
+          //   props.handleChange
+          // }
+          onChange={props.handleChange}
           label={props.inputName}
           classes={{ root: classes.underline }}
         >
@@ -123,10 +145,11 @@ export default function SelectInput(props: Props) {
     case 'Car Spaces':
       inputElement = (
         <Select
-          defaultValue={0}
-          value={props.values.carSpaces}
+          // defaultValue={0}
+          // value={props.value}
+          name={props.name}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-            props.handleChange('carSpaces')
+            props.handleChange
           }
           label={props.inputName}
           classes={{ root: classes.underline }}
@@ -138,10 +161,11 @@ export default function SelectInput(props: Props) {
     case 'Pet Friendly':
       inputElement = (
         <Select
-          defaultValue="No Pets"
-          value={props.values.petFriendly}
+          // defaultValue="No Pets"
+          // value={props.value}
+          name={props.name}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-            props.handleChange('petFriendly')
+            props.handleChange
           }
           label={props.inputName}
           classes={{ root: classes.underline }}
@@ -154,9 +178,10 @@ export default function SelectInput(props: Props) {
       inputElement = (
         <Select
           defaultValue="Apartment"
-          value={props.values.petFriendly}
+          // value={props.value}
+          name={props.name}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-            props.handleChange('type')
+            props.handleChange
           }
           label={props.inputName}
           classes={{ root: classes.underline }}
