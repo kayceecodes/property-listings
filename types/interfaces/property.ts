@@ -6,10 +6,21 @@ interface ContentfulImages {
   }
 }
 
-export type PetFriendly = "No Pets" | "no pets" | "Cats Only" | "cats only" | "Yes" | "yes"
+export type PetFriendly =
+  | 'No Pets'
+  | 'no pets'
+  | 'Cats Only'
+  | 'cats only'
+  | 'Yes'
+  | 'yes'
 export interface Property {
   id: string
 
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  
   streetAddress: string
   city: string
   state: string
@@ -20,7 +31,6 @@ export interface Property {
 
   images: any
 
-  propertyOwnerName: string
   price: string
 
   bedrooms: number
@@ -31,12 +41,15 @@ export interface Property {
 
   type: string
 
-  daysSpotted: number
+  datePosted: string
   yearBuilt: number
 
   petFriendly: PetFriendly
 }
 
+export interface PropertyPost extends Property {
+
+}
 // export interface PropertyData {
 //   fields: Property
 // }

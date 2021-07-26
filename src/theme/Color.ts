@@ -1,4 +1,4 @@
-export const colors = {
+export const color = {
   arcBlue: '#0B72B9',
   lightGray: '#eaeaea',
   slateRed: '#982414',
@@ -20,4 +20,5 @@ export const colors = {
   navyBlue: '#111833',
   darkSlateBlue: '#161b22',
   kitkatOrange: 'rgba(205,100,,45, 1)',
+  ghostWhite: '#ccc',
 }

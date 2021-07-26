@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button/Button'
 import { FormData, formData } from '../../../utils/FormData'
 import InputBase from '@material-ui/core/InputBase/InputBase'
 import TextField from '@material-ui/core/TextField/TextField'
-import { colors } from '@/src/theme/Color'
+import { color } from '@/src/theme/Color'
 import { uppercaseFirst } from 'utils/Parse'
 import { validate } from 'utils/Validate'
 
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.75rem',
   },
   formControl: {
-    backgroundColor: lighten(colors.cream, 0.3),
+    backgroundColor: lighten(color.cream, 0.3),
     // backgroundColor: 'white',
     padding: '35px 50px',
     border: `3px solid ${theme.palette.common.navyBlue}`,

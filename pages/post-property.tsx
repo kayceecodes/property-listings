@@ -7,8 +7,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import theme from '@/theme/Theme'
 import PostPropertyForm from '@/components/postForm/PostPropertyForm'
 import GridContainer from '@/src/ui/grid/GridContainer'
-import { colors } from '@/src/theme/Color'
+import { color } from '@/src/theme/Color'
 import Box from '@material-ui/core/Box/Box'
+import PostForm from '@/components/postForm/PostForm'
+import { lighten } from '@material-ui/core/styles/colorManipulator'
 
 export default function PostPropertyPage() {
   const [open, setOpen] = useState<boolean>(false)
@@ -32,7 +34,7 @@ export default function PostPropertyPage() {
               <Typography
                 style={{
                   margin: '15px 0px',
-                  color: colors.cream,
+                  color: color.cream,
                   fontSize: '2rem',
                 }}
                 component="div"
@@ -47,7 +49,10 @@ export default function PostPropertyPage() {
               </Typography>
             </Box>
             <GridContainer justify="center">
-              <PostPropertyForm />
+              {/* <PostPropertyForm /> */}
+              <Box style={{backgroundColor: lighten(color.darkSlateBlue, 0.3)}} my={8}>
+              <PostForm />
+              </Box>
             </GridContainer>
           </GridContainer>
         </Container>

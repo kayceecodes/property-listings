@@ -11,12 +11,13 @@ import GridContainer from '../../ui/grid/GridContainer'
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import theme from '../../theme/Theme'
 import Image from 'next/image'
-
+import { color } from '@/theme/Color'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { Typography } from '@material-ui/core'
 import Box from '@material-ui/core/Box/Box'
 import { changeColor } from 'utils/TextColor'
+import { darken, lighten } from '@material-ui/core/styles/colorManipulator'
 
 interface Props {
   open: boolean
@@ -28,18 +29,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
     paddingLeft: '0',
   },
+  darkBold: {
+    color: color.ghostWhite,
+    fontWeight: 500,
+  },
   paper: {
     padding: '3px 3px 15px',
     width: '97%',
     fontFamily: 'Roboto',
     margin: '40px auto 0px',
+    backgroundColor: darken(theme.palette.common.darkSlateBlue, 0.05),
     [theme.breakpoints.up('sm')]: {
       maxWidth: '550px',
       margin: '80px auto 0px',
     },
   },
   summary: {
-    color: `${theme.palette.common.dimGray}`,
+    color: lighten(theme.palette.common.dimGray, 0.5),
+    fontWeight: 400,
   },
 }))
 
@@ -92,10 +99,10 @@ export default function PropertyModal({ open, handleClose }: Props) {
 
           <Box px={3}>
             <GridContainer justify="space-between">
-              <Typography variant="body2" component="div">
-                <strong>{selectedProperty.streetAddress}</strong>
+              <div>
+                <div className={classes.darkBold}>{selectedProperty.streetAddress}</div>
                 <div>{selectedProperty.price}</div>
-              </Typography>
+              </div>
               <span
                 style={{
                   color: changeColor(selectedProperty.type, colors, cases),
@@ -106,8 +113,8 @@ export default function PropertyModal({ open, handleClose }: Props) {
             </GridContainer>
           </Box>
           <GridContainer justify="space-between" padding={'0 25px'}>
-            <span>bd: {selectedProperty.bedrooms}</span>
-            <span>sqft: {selectedProperty.sqft}</span>
+            <div><span className={classes.darkBold}>Bd: </span>{selectedProperty.bedrooms}</div>
+            <div><span className={classes.darkBold}>Sqft: </span>{selectedProperty.sqft}</div>
           </GridContainer>
         </GridContainer>
       </Paper>
