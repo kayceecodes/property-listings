@@ -13,6 +13,8 @@ export type PetFriendly =
   | 'cats only'
   | 'Yes'
   | 'yes'
+
+export type PropertyTypes = 'Apartment' | 'Condominium' | 'House'
 export interface Property {
   id: string
 
@@ -20,7 +22,7 @@ export interface Property {
   lastName: string
   email: string
   phone: string
-  
+
   streetAddress: string
   city: string
   state: string
@@ -39,7 +41,7 @@ export interface Property {
   sqft: number
   carSpaces: number
 
-  type: string
+  type: PropertyTypes
 
   datePosted: string
   yearBuilt: number
@@ -47,9 +49,7 @@ export interface Property {
   petFriendly: PetFriendly
 }
 
-export interface PropertyPost extends Property {
-
-}
+export interface PropertyPost extends Property {}
 // export interface PropertyData {
 //   fields: Property
 // }

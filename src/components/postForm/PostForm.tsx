@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography/Typography'
 import TextField from './FormsUI/Textfield'
 import { PropertyPost } from 'types/interfaces/property'
 import Button from '@material-ui/core/Button/Button'
+import Select from './FormsUI/Select'
+import { PropertyTypes, StateLocations } from '../../../utils/Constants'
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -34,7 +36,7 @@ const INITIAL_FORM_STATE: PropertyPost = {
   bathrooms: 1,
   sqft: 1,
   carSpaces: 1,
-  type: '',
+  type: 'Apartment',
   datePosted: '',
   yearBuilt: 0,
   petFriendly: 'No Pets',
@@ -86,10 +88,10 @@ export default function PostForm() {
                   <Grid item xs={12}>
                     <Typography>Your Details</Typography>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     <TextField name="firstName" label="First Name" />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     <TextField name="lastName" label="Last Name" />
                   </Grid>
 
@@ -109,7 +111,11 @@ export default function PostForm() {
                   </Grid>
 
                   <Grid item xs={6}>
-                    <TextField name="state" label="State" />
+                    <Select
+                      name="state"
+                      label="State"
+                      options={StateLocations}
+                    />
                   </Grid>
 
                   <Grid item xs={6}>
@@ -123,7 +129,7 @@ export default function PostForm() {
                   <Grid item xs={12}>
                     <input
                       accept="image/*"
-                    //   className={classes.input}
+                      //   className={classes.input}
                       style={{ display: 'none' }}
                       id="raised-button-file"
                       multiple
@@ -139,6 +145,28 @@ export default function PostForm() {
                         Upload
                       </Button>
                     </label>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Select name="bedrooms" label="Bedrooms" options={[0,1,2,3,4,5,6]} />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Select name="bathrooms" label="Bathrooms" options={[0,1,2,3,4,5,6]} />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <TextField name="sqft" label="Square Feet" />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Select name="carSpaces" label="Car Spaces" options={[0,1,2,3,4,5,6]} />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Select name="type" label="Property Type"
+                      options={PropertyTypes}
+                    />
                   </Grid>
                 </Grid>
               </Form>
