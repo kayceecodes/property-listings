@@ -11,13 +11,18 @@ export default function DateTimePicker({
         type: 'date',
         InputLabelProps: {
             shrink: true
-        }
+        },
+        ...field,
+        ...otherProps,
+        error: false,
+        helperText: ''
     }
 
     if(meta && meta.touched && meta.error) {
         configDateTimePicker.error = true;
         configDateTimePicker.helperText = meta.error
     }
+    
     return (
         <TextField variant="outlined" fullWidth={true} {...configDateTimePicker}
          />

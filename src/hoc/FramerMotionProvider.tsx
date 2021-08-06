@@ -9,35 +9,36 @@ const FramerMotionProvider = ({ children }: Props) => {
     const styleProps:any | Motions = {
       motions: {
         initial: "initial",
-        animate: "out",
-        exit: "in",
+        animate: "in",
+        exit: "out",
+        position: 'absolute',
       },
       pageAnimations: {
         variants: {
           initial: {
             opacity: 0,
-            x: "-2vw",
-            // scale: 0.8,
+            x: "0vw",
+            scale: 1,
           },
           in: {
             opacity: 1,
             x: 0,
-            // scale: 1,
+            scale: 1,
           },
           out: {
             opacity: 0,
             x: "2vw",
-            // scale: 1.1,
+            scale: 1.002,
           },
         },
         transition: {
           type: "tween", // Tween: animation that looks like it's evolving/transforming into something else
-          ease: "linear",
-          duration: 0.18,
+          ease: "anticipate",
+          duration: 0.55,
         },
       },
     }
-    return children(styleProps)
+    return <div style={{position: 'relative', overflow: 'hidden'}}>{children(styleProps)}</div>
 }
 
 export default FramerMotionProvider

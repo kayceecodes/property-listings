@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import Layout from '@/src/hoc/Layout'
 import PermissionPopup from '@/src/ui/modals/PermissionPopup'
 import Container from '@material-ui/core/Container/Container'
@@ -11,10 +11,20 @@ import { color } from '@/src/theme/Color'
 import Box from '@material-ui/core/Box/Box'
 import PostForm from '@/components/postForm/PostForm'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
+import PageTransition from '@/src/hoc/PageTransition'
+import { PageAnimations } from 'types/interfaces/animation'
+import makeStyles from '@material-ui/core/styles/makeStyles'
+interface Props {
+  pageStyle?: CSSProperties
+  pageAnimations: PageAnimations
+  // properties: PropertyData[]
+  properties: any
+}
 
-export default function PostPropertyPage() {
+export default function PostPropertyPage(props: Props) {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = () => setOpen(false)
+  const { pageAnimations, pageStyle } = props
   const matches = {
     sm: useMediaQuery(theme.breakpoints.up('sm')),
     md: useMediaQuery(theme.breakpoints.up('md')),
@@ -22,41 +32,41 @@ export default function PostPropertyPage() {
 
   return (
     <Layout>
-      <Box py={5}>
-        <Container maxWidth="lg">
-          <PermissionPopup
-            handleClose={handleClose}
-            open={open}
-            setOpen={setOpen}
-          />
-          <GridContainer justify={matches.md ? 'space-between' : 'center'}>
-            <Box mb={5}>
-              <Typography
-                style={{
-                  margin: '15px 0px',
-                  color: color.cream,
-                  fontSize: '2rem',
-                }}
-                component="div"
-                variant={`${matches.md ? 'body1' : 'h3'}`}
-              >
-                Post Your Property
-                <Typography variant="body1" component="div">
-                  Post the property you would like to put on the market below.{' '}
-                  <br />
-                  You would be posting it as a Guest user.
+      <PageTransition pageAnimations={pageAnimations}>
+        <Box py={5} mx={3} mt={8}>
+          <Container maxWidth="lg">
+            <PermissionPopup
+              handleClose={handleClose}
+              open={open}
+              setOpen={setOpen}
+            />
+            <GridContainer justify={matches.md ? 'space-between' : 'center'}>
+              <Box mb={5}>
+                <Typography
+                  component="div"
+                  variant={`${matches.md ? 'h3' : 'h4'}`}
+                >
+                  Post Your Property
+                  <Typography variant="body1" component="div">
+                    Post the property you would like to put on the market below.{' '}
+                    <br />
+                    You would be posting it as a Guest user.
+                  </Typography>
                 </Typography>
-              </Typography>
-            </Box>
-            <GridContainer justify="center">
-              {/* <PostPropertyForm /> */}
-              <Box style={{backgroundColor: lighten(color.darkSlateBlue, 0.3)}} my={8}>
-              <PostForm />
               </Box>
+              <GridContainer justify="center">
+                {/* <PostPropertyForm /> */}
+                <Box
+                  style={{ backgroundColor: lighten(color.darkSlateBlue, 0.3) }}
+                  my={5}
+                >
+                  <PostForm />
+                </Box>
+              </GridContainer>
             </GridContainer>
-          </GridContainer>
-        </Container>
-      </Box>
+          </Container>
+        </Box>
+      </PageTransition>
     </Layout>
   )
 }

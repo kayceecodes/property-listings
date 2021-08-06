@@ -32,8 +32,8 @@ export default function Index({ properties, setOpen }: Props) {
       <GridContainer
         wrap="wrap"
         xs={11}
-        sm={6}
-        lg={5}
+        sm={9}
+        md={5}
         width={matches.lg ? '1279px' : '100%'}
         spacing={matches.md ? 9 : 6}
         margin={'0 auto'}

@@ -5,7 +5,6 @@ import Layout from '../src/hoc/Layout'
 import MyMap from '../src/components/map/MyMap'
 import PropertyCards from '../src/components/propertyCards/Index'
 import { PageAnimations } from 'types/interfaces/animation'
-// import { PropertyData } from 'types/interfaces/property'
 import PropertyModal from '../src/components/propertyModal/PropertyModal'
 
 var contentful = require('contentful')
@@ -47,37 +46,23 @@ interface Props {
   properties: any
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      backgroundColor: '#cacacf',
-    },
-  })
-)
-
 export default function ListingsPage(props: Props) {
-  const { pageAnimations, pageStyle } = props
-  // const classes = useStyles()
+  const { pageAnimations } = props
   const [open, setOpen] = useState<boolean>(false)
-
   const handleClose = () => setOpen(false)
-
   const properties = props.properties.map((property) => property.fields)
 
   console.log('listings.tsx data.items - properties: ', properties)
 
   return (
     <Layout>
-      <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
+      <PageTransition pageAnimations={pageAnimations}>
         <PropertyModal open={open} handleClose={handleClose} />
         <MyMap
-          // selectedProperty={selectedProperty}
-          // setSelectedProperty={setSelectedProperty}
           setOpen={setOpen}
           properties={properties}
         />
         <PropertyCards
-          // setSelectedProperty={setSelectedProperty}
           setOpen={setOpen}
           properties={properties}
         />

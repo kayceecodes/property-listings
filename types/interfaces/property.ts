@@ -44,7 +44,6 @@ export interface Property {
   type: PropertyTypes
 
   datePosted: string
-  yearBuilt: number
 
   petFriendly: PetFriendly
 }

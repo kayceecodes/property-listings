@@ -22,6 +22,7 @@
     "@types/sass": "^1.16.0",
     "@types/yup": "^0.29.13",
     "contentful": "^8.4.2",
+    "contentful-management": "^7.31.0",
     "faker": "^5.5.3",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",

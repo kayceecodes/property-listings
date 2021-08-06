@@ -36,8 +36,8 @@ const Popups = ({ selectedProperty, setPopupStatus, Status }) => (
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    position: 'relative',
     width: '100%',
+    overflow: 'hidden',
   },
   markerBtn: {
     backgroundColor: 'transparent',
@@ -74,51 +74,50 @@ function MyMap({ properties, setOpen }: Props) {
     show = 'show',
   }
   return (
-    <ReactMapGL
-      {...viewport}
-      onViewportChange={(nextViewport) => setViewport(nextViewport)}
-      mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-      mapStyle="mapbox://styles/leighhalliday/ckhjaksxg0x2v19s1ovps41ef"
-    >
-      {properties.map((property: Property, index) => (
-        <div key={property.id}>
-          <Marker
-            latitude={property.latitude}
-            longitude={property.longitude}
-          >
-            <button
-              className={classes.markerBtn}
-              onMouseOver={() => {
-                setPopupStatus(Status.show)
-                dispatch(selectProperty(property))
-              }}
-              onClick={(e: any) => {
-                e.preventDefault()
-                setOpen(true)
-                dispatch(selectProperty(property))
-              }}
-            >
-              <Image
-                src="/assets/images/markers/pin.svg"
-                width={35}
-                height={35}
-              />
-              <br />
-              <Paper classes={{ root: classes.priceTags }}>
-                <small>{trimNumber(property.price)}</small>
-              </Paper>
-            </button>
-          </Marker>
-        </div>
-      ))}
-      {popup === Status.show && (
-        <Popups
-          setPopupStatus={setPopupStatus}
-          Status={Status}
-          selectedProperty={selectedProperty}
-        />
-      )}
-    </ReactMapGL>
+    <div className={classes.container}>
+      <ReactMapGL
+        {...viewport}
+        onViewportChange={(nextViewport) => setViewport(nextViewport)}
+        mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+        mapStyle="mapbox://styles/leighhalliday/ckhjaksxg0x2v19s1ovps41ef"
+      >
+        {properties.map((property: Property, index) => (
+          <div key={property.id}>
+            <Marker latitude={property.latitude} longitude={property.longitude}>
+              <button
+                className={classes.markerBtn}
+                onMouseOver={() => {
+                  setPopupStatus(Status.show)
+                  dispatch(selectProperty(property))
+                }}
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  setOpen(true)
+                  dispatch(selectProperty(property))
+                }}
+              >
+                <Image
+                  src="/assets/images/markers/pin.svg"
+                  width={35}
+                  height={35}
+                />
+                <br />
+                <Paper classes={{ root: classes.priceTags }}>
+                  <small>{trimNumber(property.price)}</small>
+                </Paper>
+              </button>
+            </Marker>
+          </div>
+        ))}
+        {popup === Status.show && (
+          <Popups
+            setPopupStatus={setPopupStatus}
+            Status={Status}
+            selectedProperty={selectedProperty}
+          />
+        )}
+      </ReactMapGL>
+    </div>
   )
 }
 

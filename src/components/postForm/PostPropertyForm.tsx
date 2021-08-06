@@ -96,7 +96,10 @@ export default function PostPropertyForm() {
               <React.Fragment key={formData.label}>
                 <SectionMargin m="20px" />
 
-                <FormLabel classes={{root: classes.label}} htmlFor={formData.name}>
+                <FormLabel
+                  classes={{ root: classes.label }}
+                  htmlFor={formData.name}
+                >
                   {formData.label}
                 </FormLabel>
                 <TextField
@@ -115,8 +118,7 @@ export default function PostPropertyForm() {
                 ) : null}
                 <SectionMargin m="5px" />
               </React.Fragment>
-            )) 
-            ||
+            )) ||
             (formData.type === 'select' && (
               <React.Fragment key={formData.label}>
                 <SelectInput
@@ -130,10 +132,8 @@ export default function PostPropertyForm() {
             )) ||
             (formData.type === 'attatchment' && (
               <InputLabel key={formData.label}>Image Attatchment</InputLabel>
-
-              ))
+            ))
         )}
-
         <Button className={classes.submitBtn} variant="outlined" type="submit">
           Submit
         </Button>

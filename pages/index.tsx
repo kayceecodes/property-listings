@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({}))
 
 export default function HomePage(props: Props) {
   const classes = useStyles()
-  const { pageAnimations, pageStyle } = props
+  const { pageAnimations } = props
   return (
     <Layout>
-      <PageTransition pageAnimations={pageAnimations} pageStyle={pageStyle}>
+      <PageTransition pageAnimations={pageAnimations}>
         HOME
       </PageTransition>
     </Layout>

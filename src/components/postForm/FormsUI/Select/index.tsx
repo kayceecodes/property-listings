@@ -3,6 +3,7 @@ import { useField, useFormikContext } from 'formik'
 import TextField from '@material-ui/core/TextField/TextField'
 import MenuItem from '@material-ui/core/MenuItem/MenuItem'
 import makeStyles from '@material-ui/core/styles/makeStyles'
+import { States } from 'utils/Constants'
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -23,11 +24,13 @@ export default function SelectWrapper({
         const {value} = event.target
         setFieldValue(name, value)
     }
-    const configSelect: any = {
+    const configSelect = {
         ...field,
         ...otherProps,
         select: true,
         onChange: handleChange,
+        error: false,
+        helperText: ''
     }
 
     if(meta && meta.touched && meta.error) {
@@ -37,9 +40,9 @@ export default function SelectWrapper({
 
     return (
         <TextField classes={{root: classes.text}} variant="outlined" fullWidth={true} {...configSelect}>
-            {Object.keys(options).map((item, pos) => {
-                return (<MenuItem classes={{root: classes.text}} key={pos} value={item}>
-                    {options[item]}
+            {options.map((value, index: number) => {
+                return (<MenuItem classes={{root: classes.text}} key={index} value={value}>
+                    {value}
                 </MenuItem>)
             })}
         </TextField>

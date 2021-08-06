@@ -87,7 +87,7 @@ export default createMuiTheme({
       fontSize: '0.88rem',
       fontFamily: 'Inter',
       fontWeight: 400,
-      lineHeight: 1.45,
+      // lineHeight: 1.45,
       [breakpoints.up('md')]: {
         fontSize: '1rem',
       },
