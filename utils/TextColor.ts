@@ -6,7 +6,7 @@ export const changeColor = (text: string, [...colors], [...cases]): string => {
   return chosenColor[0]
 }
 
-const cases = ['Apartment', 'House', 'Condo']
+const cases = ['Apartment', 'House', 'Condominium']
 const colors = ['#19c89f', '#1ac1dd', '#f70070']
 
 

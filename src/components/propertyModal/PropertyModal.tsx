@@ -56,20 +56,38 @@ const MyCarousel = ({ selectedProperty }) => {
     <div className={classes.carouselWrapper}>
       <Carousel showArrows={true}>
         <div>
-          <img src={'https://' + selectedProperty.images[0]?.fields.file.url} />
+          <img
+            src={
+              'https://' + (selectedProperty.images === undefined)
+                ? 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
+                : selectedProperty.images[0]?.fields.file.url
+            }
+          />
         </div>
         <div>
-          <img src={'https://' + selectedProperty.images[1]?.fields.file.url} />
+          <img
+            src={
+              'https://' + (selectedProperty.images === undefined)
+                ? 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
+                : selectedProperty.images[1]?.fields.file.url
+            }
+          />
         </div>
         <div>
-          <img src={'https://' + selectedProperty.images[2]?.fields.file.url} />
+          <img
+            src={
+              'https://' + (selectedProperty.images === undefined)
+                ? 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
+                : selectedProperty.images[2]?.fields.file.url
+            }
+          />
         </div>
       </Carousel>
     </div>
   )
 }
 
-const cases = ['Apartment', 'House', 'Condo']
+const cases = ['Apartment', 'House', 'Condominium']
 const colors = ['#19c89f', '#1ac1dd', '#f70070']
 
 export default function PropertyModal({ open, handleClose }: Props) {
@@ -100,7 +118,9 @@ export default function PropertyModal({ open, handleClose }: Props) {
           <Box px={3}>
             <GridContainer justify="space-between">
               <div>
-                <div className={classes.darkBold}>{selectedProperty.streetAddress}</div>
+                <div className={classes.darkBold}>
+                  {selectedProperty.streetAddress}
+                </div>
                 <div>{selectedProperty.price}</div>
               </div>
               <span
@@ -113,8 +133,14 @@ export default function PropertyModal({ open, handleClose }: Props) {
             </GridContainer>
           </Box>
           <GridContainer justify="space-between" padding={'0 25px'}>
-            <div><span className={classes.darkBold}>Bd: </span>{selectedProperty.bedrooms}</div>
-            <div><span className={classes.darkBold}>Sqft: </span>{selectedProperty.sqft}</div>
+            <div>
+              <span className={classes.darkBold}>Bd: </span>
+              {selectedProperty.bedrooms}
+            </div>
+            <div>
+              <span className={classes.darkBold}>Sqft: </span>
+              {selectedProperty.sqft}
+            </div>
           </GridContainer>
         </GridContainer>
       </Paper>

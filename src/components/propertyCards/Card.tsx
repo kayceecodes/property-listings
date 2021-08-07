@@ -22,7 +22,7 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const cases = ['Apartment', 'House', 'Condo']
+const cases = ['Apartment', 'House', 'Condominium']
 const colors = ['#19c89f', '#1ac1dd', '#f70070']
 
 const useStyles = makeStyles((theme: Theme) => ({
