@@ -166,17 +166,31 @@ export const inputProps = [
   },
   {
     xs: 12,
-    sm: 12,
+    sm: 6,
     name: 'latitude',
     label: 'Latitude',
     type: 'textfield',
   },
   {
     xs: 12,
-    sm: 12,
+    sm: 6,
     name: 'longitude',
     label: 'Longitude',
     type: 'textfield',
+  },
+  {
+    xs: 12,
+    sm: 12,
+    name: 'price',
+    label: 'Price',
+    type: 'textfield',
+  },
+  {
+    xs: 12,
+    sm: 12,
+    name: 'images',
+    label: 'Upload',
+    type: 'file',
   },
   {
     xs: 6,
@@ -209,7 +223,7 @@ export const inputProps = [
     name: 'type',
     label: 'Property Type',
     type: 'select',
-    options: ["Apartment", "House", "Condominium"],
+    options: ['Apartment', 'House', 'Condominium'],
   },
   {
     xs: 8,

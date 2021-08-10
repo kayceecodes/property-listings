@@ -1,16 +1,13 @@
-import React, { Dispatch } from 'react'
+import React from 'react'
 import Modal from '@material-ui/core/Modal/Modal'
 import Paper from '@material-ui/core/Paper/Paper'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { Property } from '../../../types/interfaces/property'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { selectProperty } from '../../store/actions/actionCreators'
-import Layout from '../../hoc/Layout'
+import { shallowEqual, useSelector } from 'react-redux'
 import GridContainer from '../../ui/grid/GridContainer'
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import theme from '../../theme/Theme'
-import Image from 'next/image'
 import { color } from '@/theme/Color'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
@@ -22,6 +19,7 @@ import { darken, lighten } from '@material-ui/core/styles/colorManipulator'
 interface Props {
   open: boolean
   handleClose: () => void
+  selectedProperty: Property
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -50,39 +48,61 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const MyCarousel = ({ selectedProperty }) => {
+const MyCarousel = ({ selectedProperty }: Pick<Props, 'selectedProperty'>) => {
   const classes = useStyles()
+  const {
+    streetAddress,
+    city,
+    state,
+    zipcode,
+    firstName,
+    lastName,
+    email,
+    phone,
+    images,
+    bathrooms,
+    bedrooms,
+    datePosted,
+  } = selectedProperty
   return (
     <div className={classes.carouselWrapper}>
-      <Carousel showArrows={true}>
-        <div>
-          <img
-            src={
-              'https://' + (selectedProperty.images === undefined)
-                ? 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
-                : selectedProperty.images[0]?.fields.file.url
-            }
-          />
-        </div>
-        <div>
-          <img
-            src={
-              'https://' + (selectedProperty.images === undefined)
-                ? 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
-                : selectedProperty.images[1]?.fields.file.url
-            }
-          />
-        </div>
-        <div>
-          <img
-            src={
-              'https://' + (selectedProperty.images === undefined)
-                ? 'https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png'
-                : selectedProperty.images[2]?.fields.file.url
-            }
-          />
-        </div>
-      </Carousel>
+      {images === undefined ? (
+        <Carousel showArrows={true}>
+          <img src="https://www.ivsauto.ca/frontend/assets/images/placeholder/inventory-full-placeholder.png" />
+          <Box mt={5}>
+            <div>
+              <h3>{streetAddress}</h3>
+              <div>
+                {city + ' ' + state + ' ' + zipcode}
+              </div>
+            </div>
+            <p>
+              Property Owner: <span>{firstName + ' ' + lastName}</span>
+            </p>
+            <p>{email}</p>
+            <p>
+              {bedrooms} {bathrooms > 1 ? ' bedrooms' : 'bedroom'}
+            </p>
+            <p>
+              {bathrooms} {bathrooms > 1 ? ' bathrooms' : 'bathroom'}
+            </p>
+            <p>Posted: {datePosted}</p>
+            <p>Contact: {phone}</p>
+          </Box>
+        </Carousel>
+      ) : (
+        <Carousel showArrows={true}>
+          <div>
+            <img src={images[0]?.fields.file.url} />
+          </div>
+          <div>
+            <img src={images[1]?.fields.file.url} />
+          </div>
+          <div>
+            <img src={images[2]?.fields.file.url} />
+          </div>
+        </Carousel>
+      )}
     </div>
   )
 }

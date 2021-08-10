@@ -31,7 +31,7 @@ export interface Property {
   latitude: number
   longitude: number
 
-  images: any
+  images: ContentfulImages[]
 
   price: string
 

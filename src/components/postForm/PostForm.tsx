@@ -3,39 +3,29 @@ import Container from '@material-ui/core/Container/Container'
 import Grid, { GridSize } from '@material-ui/core/Grid/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import * as Yup from 'yup'
-import { Form, Formik, useField, useFormikContext } from 'formik'
+import { Form, Formik, FormikErrors, FormikValues } from 'formik'
 import Typography from '@material-ui/core/Typography/Typography'
 import TextField from './FormsUI/Textfield'
 import { PropertyPost } from 'types/interfaces/property'
 import Button from '@material-ui/core/Button/Button'
 import Select from './FormsUI/Select'
-import {
-  inputProps,
-  PropertyTypes,
-  StateLocations,
-  States,
-} from '../../../utils/Constants'
+import { inputProps } from '../../../utils/Constants'
 import DateTimePicker from './FormsUI/DateTimePicker'
-import { values } from 'lodash'
-import { initialState } from '@/src/store/reducers'
 import { color } from '@/src/theme/Color'
-import {
-  darken,
-  fade,
-  lighten,
-} from '@material-ui/core/styles/colorManipulator'
+import { fade, lighten } from '@material-ui/core/styles/colorManipulator'
 import { PostProperty } from './PostPropertyForm'
 import Popper from '@material-ui/core/Popper/Popper'
+import Icon from '@material-ui/core/Icon/Icon'
 
 const useStyles = makeStyles((theme) => ({
-  button: {
+  fileInputBtn: {
     color: fade(color.offWhite, 0.65),
     marginRight: '20px',
     padding: '10px 30px',
+    border: `0.5px solid ${fade('#000', 0.25)}`,
   },
-  input: {
-    backgroundColor: 'transparent',
-    border: '1px solid white',
+  fileInput: {
+    display: 'none',
   },
   formWrapper: {
     marginTop: theme.spacing(5),
@@ -57,10 +47,32 @@ const useStyles = makeStyles((theme) => ({
     margin: '30px auto 0',
   },
   text: {
-    color: '#111',
+    color: fade(color.offWhite, 0.65),
     fontWeight: 300,
   },
 }))
+
+// const INITIAL_FORM_STATE: Omit<PropertyPost, 'id' | 'images'> = {
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   phone: '',
+//   price: '',
+//   streetAddress: '',
+//   city: '',
+//   state: '',
+//   zipcode: '',
+//   latitude: 0,
+//   longitude: 0,
+//   // images: [{ fields: { file: { url: '/insert-img-here' } } }],
+//   bedrooms: 1,
+//   bathrooms: 1,
+//   sqft: 0,
+//   carSpaces: 0,
+//   type: 'Condominium',
+//   datePosted: '',
+//   petFriendly: 'No Pets',
+// }
 
 const INITIAL_FORM_STATE: Omit<PropertyPost, 'id'> = {
   firstName: 'Dan',
@@ -74,7 +86,7 @@ const INITIAL_FORM_STATE: Omit<PropertyPost, 'id'> = {
   zipcode: '92130',
   latitude: -39.94217,
   longitude: -75.17629,
-  images: [{ fields: { file: { url: '/insert-img-here' } } }],
+  images: [],
   bedrooms: 1,
   bathrooms: 1,
   sqft: 30050,
@@ -98,13 +110,12 @@ const FORM_VALIDATION = Yup.object().shape({
   state: Yup.string().required('Required'),
   /**/ latitude: Yup.number().required('Required'),
   /**/ longitude: Yup.number().required('Required'),
-  images: Yup.string().required('Required'),
+  // images: Yup.string().required('Required'),
   /**/ bedrooms: Yup.number().required('Required'),
   /**/ sqft: Yup.number().required('Required'),
   /**/ carSpaces: Yup.number().required('Required'),
   type: Yup.string().required('Required'),
   datePosted: Yup.date().required('Required'),
-  /**/ yearBuilt: Yup.number().required('Required'),
   petFriendly: Yup.string().required('Required'),
 })
 
@@ -119,11 +130,9 @@ export default function PostForm() {
     setAnchorEl(anchorEl ? null : event.currentTarget)
   }
   const open = Boolean(anchorEl)
-  // const id = open ? 'simple-popper' : undefined
 
   const postProperty = (data: PostProperty) => {
     const contentful = require('contentful-management')
-
     const client = contentful.createClient({
       accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
     })
@@ -164,10 +173,10 @@ export default function PostForm() {
               'en-US': data.zipcode,
             },
             latitude: {
-              'en-US': data.latitude,
+              'en-US': Number(data.latitude as number),
             },
             longitude: {
-              'en-US': data.longitude,
+              'en-US': Number(data.longitude as number),
             },
             bedrooms: {
               'en-US': data.bedrooms,
@@ -176,7 +185,7 @@ export default function PostForm() {
               'en-US': data.bathrooms,
             },
             sqft: {
-              'en-US': data.sqft,
+              'en-US': Number(data.sqft),
             },
             carSpaces: {
               'en-US': data.carSpaces,
@@ -204,6 +213,7 @@ export default function PostForm() {
         <Container maxWidth="md">
           <div className={classes.formWrapper}>
             <Formik
+              validateOnChange={true}
               initialValues={{
                 ...INITIAL_FORM_STATE,
               }}
@@ -212,7 +222,7 @@ export default function PostForm() {
                 console.log(values)
               }}
             >
-              {(formProps, isValid) => (
+              {({ isValid, dirty, errors, isSubmitting, submitForm, values }) => (
                 <Form>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -226,16 +236,34 @@ export default function PostForm() {
                         sm={prop.sm as GridSize}
                       >
                         {prop.type === 'textfield' ? (
-                          <TextField
-                            name={prop.name}
-                            label={prop.label}
-                          />
+                          <TextField name={prop.name} label={prop.label} />
                         ) : prop.type === 'select' ? (
                           <Select
                             name={prop.name}
                             label={prop.label}
                             options={prop.options}
                           />
+                        ) : prop.type === 'file' ? (
+                          <>
+                            <input
+                              type="file"
+                              multiple
+                              name="images"
+                              accept="image/*"
+                              id="raised-button-file"
+                              className={classes.fileInput}
+                            />
+                            <label htmlFor="raised-button-file">
+                              <Button
+                                component="span"
+                                id="file-browser"
+                                className={classes.fileInputBtn}
+                              >
+                                <Icon>perm_media</Icon>
+                              </Button>
+                            </label>
+                            <span className={classes.text}>{ values.images.length > 0 ? values.images[0].fields.file.url : "Upload Images"}</span>
+                          </>
                         ) : (
                           <DateTimePicker
                             name="datePosted"
@@ -244,21 +272,26 @@ export default function PostForm() {
                         )}
                       </Grid>
                     ))}
-
+                    {console.log('Errors in Formik: ', errors)}
+                        {console.log('Images: ', values.images[0].fields.file.url)}
                     <Grid item xs={12}>
                       <div className={classes.submitBtnWrapper}>
                         <Button
+                          disabled={(!isValid && !dirty) || isSubmitting}
                           variant="outlined"
                           fullWidth={true}
                           className={classes.submitBtn}
                           onClick={(event: any) => {
-                            // if (isValid === false) {
-                            //   handlePopper(event)
-                            //   formProps.submitForm()
-                            // } else {
-                              formProps.submitForm()
-                              postProperty(formProps.values)
-                            // }
+                            if (!isValid || Object.keys(errors).length > 0) {
+                              handlePopper(event)
+                              submitForm()
+                              console.log('not submitted..')
+                            } else {
+                              console.log("It's been submitted!")
+                              submitForm()
+
+                              // postProperty(values)
+                            }
                           }}
                         >
                           Submit
@@ -269,7 +302,7 @@ export default function PostForm() {
                           Please finish the form.
                         </div>
                       </Popper>
-                      {/* <pre>{JSON.stringify(formProps.values)}</pre> */}
+                      {/* <pre>{JSON.stringify(values)}</pre> */}
                     </Grid>
                   </Grid>
                 </Form>

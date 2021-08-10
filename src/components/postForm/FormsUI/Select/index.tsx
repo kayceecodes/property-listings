@@ -19,7 +19,6 @@ export default function SelectWrapper({
     const classes = useStyles()
     const { setFieldValue } = useFormikContext()
     const [field, meta] = useField(name)
-
     const handleChange = (event: any) => {
         const {value} = event.target
         setFieldValue(name, value)
