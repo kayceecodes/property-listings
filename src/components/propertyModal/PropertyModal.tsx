@@ -110,7 +110,7 @@ const MyCarousel = ({ selectedProperty }: Pick<Props, 'selectedProperty'>) => {
 const cases = ['Apartment', 'House', 'Condominium']
 const colors = ['#19c89f', '#1ac1dd', '#f70070']
 
-export default function PropertyModal({ open, handleClose }: Props) {
+export default function PropertyModal({ open, handleClose }: Omit<Props, 'selectedProperty'>) {
   const classes = useStyles()
   const selectedProperty: Property = useSelector(
     (state: any) => state.property.selectedProperty,
