@@ -27,7 +27,10 @@ const baseProps: CardType = {
 
       images: [{fields:{file:{url: '/some-tested-img'}}}],
 
-      propertyOwnerName: 'Ruth King',
+      firstName: 'Ruth',
+      lastName: 'King',
+      email: 'rking@gmail.com',
+      phone: '(231) 393 - 9391',
       price: '$12910.00',
 
       bedrooms: 1,
@@ -35,8 +38,7 @@ const baseProps: CardType = {
       sqft: 919,
       carSpaces: 2,
       type: 'Apartment',
-      daysSpotted: 56,
-      yearBuilt: 1993,
+      datePosted: '08/02/2021',
       petFriendly: 'cats only',
     },
     setOpen: jest.fn()
