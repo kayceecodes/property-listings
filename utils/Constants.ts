@@ -189,7 +189,7 @@ export const inputProps = [
     xs: 12,
     sm: 12,
     name: 'images',
-    label: 'Upload',
+    label: 'Images',
     type: 'file',
   },
   {

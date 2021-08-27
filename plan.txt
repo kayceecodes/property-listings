@@ -3,3 +3,15 @@ Home Listing of places to go
     2. login
     3. Zillow map
     4. Current location  map background
+
+
+
+const handleSomeFunction = () => {
+    const imgHref = upload(files)
+    postproperty(someData)
+}
+
+<Button
+click={handleSomeFunction}
+>Submit
+</Button>

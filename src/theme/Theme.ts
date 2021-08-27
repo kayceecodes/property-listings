@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 
 const arcBlue = '#0B72B9'
@@ -52,7 +52,7 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 }
 
-export default createMuiTheme({
+export default createTheme({
   overrides: {
     MuiButton: {
       root: {

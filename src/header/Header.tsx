@@ -4,12 +4,10 @@ import Link from 'next/link'
 import Button from '@material-ui/core/Button/Button'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import { route } from 'next/dist/next-server/server/router'
 import createStyles from '@material-ui/core/styles/createStyles'
 import { color } from '../theme/Color'
 import { darken } from '@material-ui/core'
 import Box from '@material-ui/core/Box/Box'
-import { matches } from 'lodash'
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import theme from '@/src/theme/Theme'
 import { fade, lighten } from '@material-ui/core/styles/colorManipulator'
@@ -25,7 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 5,
       backgroundColor: lighten(color.darkSlateBlue, 0.018),
       transition: 'transform 0.3s',
-      borderRight: `2px solid ${fade(lighten(color.darkSlateBlue, 0.08), 0.2)}`, 
+      borderRight: `1px solid ${fade(darken(color.offWhite, 0.3), 0.1)}`,
+      boxShadow: '0 0 15px #00000080' 
     },
     hide: {
       transform: 'translateX(-200px)',
@@ -56,14 +55,6 @@ const routes = [
     path: '/listings',
     text: 'Listings',
   },
-  // {
-  //   path: '/auth/sign-up',
-  //   text: 'Sign Up',
-  // },
-  // {
-  //   path: '/auth/login',
-  //   text: 'Login',
-  // },
   {
     path: '/post-property',
     text: 'Post Property',

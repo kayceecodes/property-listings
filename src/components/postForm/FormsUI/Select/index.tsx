@@ -3,7 +3,6 @@ import { useField, useFormikContext } from 'formik'
 import TextField from '@material-ui/core/TextField/TextField'
 import MenuItem from '@material-ui/core/MenuItem/MenuItem'
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import { States } from 'utils/Constants'
 
 const useStyles = makeStyles((theme) => ({
     text: {

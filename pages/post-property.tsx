@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container/Container'
 import Typography from '@material-ui/core/Typography/Typography'
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import theme from '@/theme/Theme'
-import PostPropertyForm from '@/components/postForm/PostPropertyForm'
 import GridContainer from '@/src/ui/grid/GridContainer'
 import { color } from '@/src/theme/Color'
 import Box from '@material-ui/core/Box/Box'
@@ -13,7 +12,7 @@ import PostForm from '@/components/postForm/PostForm'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
 import PageTransition from '@/src/hoc/PageTransition'
 import { PageAnimations } from 'types/interfaces/animation'
-import makeStyles from '@material-ui/core/styles/makeStyles'
+
 interface Props {
   pageStyle?: CSSProperties
   pageAnimations: PageAnimations

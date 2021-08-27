@@ -1,4 +1,4 @@
-interface ContentfulImages {
+export interface ContentfulImages {
   fields: {
     file: {
       url: string
@@ -14,7 +14,7 @@ export type PetFriendly =
   | 'Yes'
   | 'yes'
 
-export type PropertyTypes = 'Apartment' | 'Condominium' | 'House'
+export type PropertyTypes = 'Apartment' | 'Condominium' | 'House' | ''
 export interface Property {
   id: string
 

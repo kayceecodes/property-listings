@@ -5,11 +5,15 @@ import { ActionTypes } from '../actions/actionTypes'
 export interface PropertyState {
   selectedProperty: Property
 }
-
+const fields = {file: {url: ''}}
 export const initialState: PropertyState = {
   selectedProperty: {
     id: '',
 
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
     streetAddress: '',
     city: '',
     zipcode: '',
@@ -18,10 +22,11 @@ export const initialState: PropertyState = {
     latitude: 0,
     longitude: -0,
 
-    images: '',
+    images: [{fields}],
 
-    propertyOwnerName: '',
     price: '$0.00',
+
+    datePosted: '',
 
     bedrooms: 0,
     bathrooms: 0,
@@ -30,8 +35,6 @@ export const initialState: PropertyState = {
     
     type: '',
     
-    daysSpotted: 0,
-    yearBuilt: 0,
     
     petFriendly: 'No Pets',
   },
