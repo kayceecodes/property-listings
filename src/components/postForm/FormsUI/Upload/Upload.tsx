@@ -36,7 +36,6 @@ export default function Upload(props: Props) {
     const formData = new FormData()
     formData.append('file', files[0])
     formData.append('upload_preset', 'ubveh1ft')
-
     fetch('https://api.cloudinary.com/v1_1/duezerehu/image/upload', {
         method: 'POST',
         body: formData
