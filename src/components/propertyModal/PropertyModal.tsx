@@ -136,7 +136,7 @@ export default function PropertyModal({ open, handleClose }: Omit<Props, 'select
           <MyCarousel selectedProperty={selectedProperty} />
 
           <Box px={3}>
-            <GridContainer justify="space-between">
+            <GridContainer justifyContent="space-between">
               <div>
                 <div className={classes.darkBold}>
                   {selectedProperty.streetAddress}
@@ -152,7 +152,7 @@ export default function PropertyModal({ open, handleClose }: Omit<Props, 'select
               </span>
             </GridContainer>
           </Box>
-          <GridContainer justify="space-between" padding={'0 25px'}>
+          <GridContainer justifyContent="space-between" padding={'0 25px'}>
             <div>
               <span className={classes.darkBold}>Bd: </span>
               {selectedProperty.bedrooms}

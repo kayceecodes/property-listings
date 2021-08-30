@@ -12,7 +12,7 @@ import Select from "./FormsUI/Select";
 import { inputProps } from "../../../utils/Constants";
 import DateTimePicker from "./FormsUI/DateTimePicker";
 import { color } from "@/src/theme/Color";
-import { fade, lighten } from "@material-ui/core/styles/colorManipulator";
+import { alpha, lighten } from "@material-ui/core/styles/colorManipulator";
 import Popper from "@material-ui/core/Popper/Popper";
 import Icon from "@material-ui/core/Icon/Icon";
 import { Entry, Environment, Space } from "contentful-management/types";
@@ -21,10 +21,10 @@ import Upload from "./FormsUI/Upload/Upload";
 
 const useStyles = makeStyles((theme) => ({
   // fileInputBtn: {
-  //   color: fade(color.offWhite, 0.65),
+  //   color: alpha(color.offWhite, 0.65),
   //   marginRight: "20px",
   //   padding: "10px 30px",
-  //   border: `1px solid ${fade("#000", 0.25)}`,
+  //   border: `1px solid ${alpha("#000", 0.25)}`,
   // },
   // fileInput: {
   //   display: "none",
@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(8),
   },
   paper: {
-    border: `1px solid ${fade(lighten(color.darkSlateBlue, 0.08), 0.2)}`,
+    border: `1px solid ${alpha(lighten(color.darkSlateBlue, 0.08), 0.2)}`,
     padding: theme.spacing(1),
     backgroundColor: "#2a2a2a",
     borderRadius: "3px",
-    color: fade(color.offWhite, 0.93),
+    color: alpha(color.offWhite, 0.93),
   },
   submitBtn: {
     color: "#111 !important",
@@ -49,12 +49,13 @@ const useStyles = makeStyles((theme) => ({
     margin: "30px auto 0",
   },
   text: {
-    color: fade(color.offWhite, 0.65),
+    color: alpha(color.offWhite, 0.65),
     fontWeight: 300,
   },
 }));
 
-const INITIAL_FORM_STATE: Omit<PropertyPost, "id"> = {
+// const INITIAL_FORM_STATE: Omit<PropertyPost, "id"> = {
+const INITIAL_FORM_STATE: any = {
   firstName: "Dan",
   lastName: "Lot",
   email: "dlot@gmail.com",
@@ -108,23 +109,23 @@ export default function PostForm() {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
   const open = Boolean(anchorEl);
-  const [selectedImage, setSelectedImage] = useState<File>()
-  const uploadImage = () => {
-    const formData = new FormData()
-    formData.append('file', selectedImage)
-    formData.append('upload_preset', 'ubveh1ft')
+  const [selectedImage, setSelectedImage] = useState<FileList>();
+  const uploadImage = async (): Promise<any> => {
+    const formData = new FormData();
+    console.log('selectedImage:', selectedImage)
+    formData.append("file", selectedImage[0]);
+    formData.append("upload_preset", "ubveh1ft");
 
-    return fetch('https://api.cloudinary.com/v1_1/duezerehu/image/upload', {
-        method: 'POST',
-        body: formData
-    })
-    .then((res) => console.log(res))
-}
-  const handleSubmit = (values:Omit<PropertyPost, "id">) => {
-    const href = uploadImage()
-    postProperty(values)
-  }
-  const postProperty = (data: Partial<Property>) => {
+    return fetch("https://api.cloudinary.com/v1_1/duezerehu/image/upload", {
+      method: "POST",
+      body: formData,
+    }).then((res) => res.json());
+  };
+  const handleSubmit = (values: Omit<PropertyPost, "id">) => {
+    uploadImage().then((res) => postProperty(values, res.secure_url));
+  };
+
+  const postProperty = (data: Partial<Property>, uploadHref: string) => {
     const SPACE_ID = process.env.NEXT_CONTENTFUL_SPACE_ID;
     const client = createClient({
       accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
@@ -199,39 +200,42 @@ export default function PostForm() {
               },
             },
           })
-          // 4 then - publish entry
-          .then((entry) => entry.publish())
+          .then(entry => {entry.publish(); return environment.getEntry(entry.sys.id)})          
           .then(function (entry: Entry) {
-            
             // 5 create a new asset in my Contentful media section
             environment
-              .createAssetWithId(
-                faker.datatype.number(4).toString(),
-                {
-                  fields: {
-                    title: {
-                      "en-US": data.streetAddress,
-                    },
-                    file: {
-                      "en-US": {
-                        contentType: "image/jpeg",
-                        fileName: data.streetAddress + ".jpeg",
-                        upload: "http://www.example.com/test.jpg",
-                      },
+              .createAssetWithId(faker.datatype.number(4).toString(), {
+                fields: {
+                  title: {
+                    "en-US": data.streetAddress,
+                  },
+                  file: {
+                    "en-US": {
+                      contentType: "image/jpeg",
+                      fileName: data.streetAddress + ".jpeg",
+                      upload: uploadHref,
                     },
                   },
-                }
-              )
+                },
+              })
               .then((asset) => asset.processForAllLocales())
               .then((asset) => asset.publish())
-              .then(function (asset) {
-                // assign uploaded image as an entry field
-                entry.fields["image"]["en-US"] = {
-                  sys: { id: asset.sys.id, linkType: "Asset", type: "Link" },
-                };
-                return entry.update();
-              });
-          });
+              // .then(function (asset) {
+              //   // assign uploaded image as an entry field
+              //   entry.fields["images"]["en-US"] = {
+              //     sys: {
+              //       id: asset.sys.id, 
+              //       linkType: "Asset", 
+              //       type: "Link" 
+              //     },
+              //   };
+              
+              //   return entry.update()
+              // });
+              console.log('Entry object value: ', entry)
+              return entry.update()
+          })
+          .catch(err => console.log("Error Message!: ", err))
       });
     });
   };
@@ -281,9 +285,13 @@ export default function PostForm() {
                           />
                         ) : prop.type === "file" ? (
                           <>
-                            <Upload setFieldValue={setFieldValue} images={values.images} />
+                            <Upload
+                              setFieldValue={setFieldValue}
+                              setSelectedImage={setSelectedImage}
+                              image={values.images}
+                            />
 
-                          {/* <input
+                            {/* <input
                               type="file"
                               multiple
                               name="images[]"
@@ -335,7 +343,7 @@ export default function PostForm() {
                             } else {
                               console.log("It's been submitted!");
                               submitForm();
-                              handleSubmit(values)
+                              handleSubmit(values);
                               // postProperty(values);
                             }
                           }}

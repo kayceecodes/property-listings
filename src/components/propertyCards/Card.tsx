@@ -72,7 +72,7 @@ export default function PropertyCard({ property, setOpen }: Props) {
           <Typography variant="body1" component="div">
             <GridContainer
               width="100%"
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
             >
               {property.price}

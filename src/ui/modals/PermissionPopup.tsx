@@ -46,7 +46,7 @@ export default function PermissionPopup({ setOpen, open, handleClose }: Props) {
       aria-describedby="selected property modal"
     >
       <Paper className={classes.paper + ' ' + classes.alert}>
-        <GridContainer justify="flex-end">
+        <GridContainer justifyContent="flex-end">
           <Icon
             onClick={() => {
               setOpen(false)
@@ -60,7 +60,7 @@ export default function PermissionPopup({ setOpen, open, handleClose }: Props) {
           You are not logged in. Do you want to continue as a guest?
         </Typography>
         <br />
-        <GridContainer justify="space-around">
+        <GridContainer justifyContent="space-around">
           <Button variant="contained">Guest</Button>
           <Button variant="contained">Login</Button>
         </GridContainer>

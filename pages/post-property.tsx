@@ -39,7 +39,7 @@ export default function PostPropertyPage(props: Props) {
               open={open}
               setOpen={setOpen}
             />
-            <GridContainer justify={matches.md ? 'space-between' : 'center'}>
+            <GridContainer justifyContent={matches.md ? 'space-between' : 'center'}>
               <Box mb={5}>
                 <Typography
                   component="div"
@@ -53,7 +53,7 @@ export default function PostPropertyPage(props: Props) {
                   </Typography>
                 </Typography>
               </Box>
-              <GridContainer justify="center">
+              <GridContainer justifyContent="center">
                 {/* <PostPropertyForm /> */}
                 <Box
                   style={{ backgroundColor: lighten(color.darkSlateBlue, 0.3) }}

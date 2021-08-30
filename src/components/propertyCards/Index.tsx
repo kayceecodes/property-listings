@@ -37,7 +37,7 @@ export default function Index({ properties, setOpen }: Props) {
         width={matches.lg ? '1279px' : '100%'}
         spacing={matches.md ? 9 : 6}
         margin={'0 auto'}
-        justify='center'
+        justifyContent='center'
       >
         {properties.map((property: Property) => (
           <Card key={property.streetAddress}
