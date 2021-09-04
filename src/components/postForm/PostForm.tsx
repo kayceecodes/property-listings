@@ -19,6 +19,10 @@ import { Entry, Environment, Space } from "contentful-management/types";
 import { createClient } from "contentful-management";
 import Upload from "./FormsUI/Upload/Upload";
 
+const client = createClient({
+  accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
+});
+
 const useStyles = makeStyles((theme) => ({
   // fileInputBtn: {
   //   color: alpha(color.offWhite, 0.65),
@@ -56,11 +60,11 @@ const useStyles = makeStyles((theme) => ({
 
 // const INITIAL_FORM_STATE: Omit<PropertyPost, "id"> = {
 const INITIAL_FORM_STATE: any = {
-  firstName: "Dan",
-  lastName: "Lot",
-  email: "dlot@gmail.com",
+  firstName: "John",
+  lastName: "Doe",
+  email: "jdoe@gmail.com",
   phone: "267 483 3003",
-  price: "$35000.00",
+  price: "$26000.00",
   streetAddress: "123 South St.",
   city: "Philadelphia",
   state: "Pennsylvania",
@@ -112,7 +116,7 @@ export default function PostForm() {
   const [selectedImage, setSelectedImage] = useState<FileList>();
   const uploadImage = async (): Promise<any> => {
     const formData = new FormData();
-    console.log('selectedImage:', selectedImage)
+    console.log("selectedImage:", selectedImage);
     formData.append("file", selectedImage[0]);
     formData.append("upload_preset", "ubveh1ft");
 
@@ -122,123 +126,124 @@ export default function PostForm() {
     }).then((res) => res.json());
   };
   const handleSubmit = (values: Omit<PropertyPost, "id">) => {
-    uploadImage().then((res) => postProperty(values, res.secure_url));
+    uploadImage().then((res) => createEntryWithAsset(values, res.secure_url));
   };
 
-  const postProperty = (data: Partial<Property>, uploadHref: string) => {
-    const SPACE_ID = process.env.NEXT_CONTENTFUL_SPACE_ID;
-    const client = createClient({
-      accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
+  async function createEntryWithAsset(
+    data: Omit<Property, "id">,
+    uploadHref: string
+  ) {
+    const space = await client.getSpace(process.env.NEXT_CONTENTFUL_SPACE_ID);
+    const environment = await space.getEnvironment("master");
+
+    /**
+     * Entry creation and publish
+     */
+    let entry = await environment.createEntry("propertyListings", {
+      fields: {
+        id: {
+          "en-US": faker.datatype.number(4).toString(),
+        },
+        firstName: {
+          "en-US": data.firstName,
+        },
+        lastName: {
+          "en-US": data.lastName,
+        },
+        email: {
+          "en-US": data.email,
+        },
+        phone: {
+          "en-US": data.phone,
+        },
+        price: {
+          "en-US": data.price,
+        },
+        streetAddress: {
+          "en-US": data.streetAddress,
+        },
+        city: {
+          "en-US": data.city,
+        },
+        state: {
+          "en-US": data.state,
+        },
+        zipcode: {
+          "en-US": data.zipcode,
+        },
+        latitude: {
+          "en-US": Number(data.latitude as number),
+        },
+        longitude: {
+          "en-US": Number(data.longitude as number),
+        },
+        bedrooms: {
+          "en-US": data.bedrooms,
+        },
+        bathrooms: {
+          "en-US": data.bathrooms,
+        },
+        sqft: {
+          "en-US": Number(data.sqft),
+        },
+        carSpaces: {
+          "en-US": data.carSpaces,
+        },
+        type: {
+          "en-US": data.type,
+        },
+        datePosted: {
+          "en-US": data.datePosted,
+        },
+        petFriendly: {
+          "en-US": data.petFriendly,
+        },
+        images: {
+          "en-US": []
+        },
+      },
     });
-    // 1 get space by space id
-    client.getSpace(SPACE_ID).then((space: Space) => {
-      // 2 get environment
-      space.getEnvironment("master").then(async (environment: Environment) => {
-        // 3 then - Create Entry
-        environment
-          .createEntry("propertyListings", {
-            fields: {
-              id: {
-                "en-US": faker.datatype.number(4) + "-" + data.streetAddress,
-              },
-              firstName: {
-                "en-US": data.firstName,
-              },
-              lastName: {
-                "en-US": data.lastName,
-              },
-              email: {
-                "en-US": data.email,
-              },
-              phone: {
-                "en-US": data.phone,
-              },
-              price: {
-                "en-US": data.price,
-              },
-              streetAddress: {
-                "en-US": data.streetAddress,
-              },
-              city: {
-                "en-US": data.city,
-              },
-              state: {
-                "en-US": data.state,
-              },
-              zipcode: {
-                "en-US": data.zipcode,
-              },
-              latitude: {
-                "en-US": Number(data.latitude as number),
-              },
-              longitude: {
-                "en-US": Number(data.longitude as number),
-              },
-              bedrooms: {
-                "en-US": data.bedrooms,
-              },
-              bathrooms: {
-                "en-US": data.bathrooms,
-              },
-              sqft: {
-                "en-US": Number(data.sqft),
-              },
-              carSpaces: {
-                "en-US": data.carSpaces,
-              },
-              type: {
-                "en-US": data.type,
-              },
-              datePosted: {
-                "en-US": data.datePosted,
-              },
-              petFriendly: {
-                "en-US": data.petFriendly,
-              },
-              images: {
-                "en-US": [],
-              },
+    // reassign `entry` to have the latest version number
+    entry = await entry.publish();
+
+    /**
+     * Asset creation and publish
+     */
+    let asset = await environment.createAssetWithId(
+      faker.datatype.number(4).toString(),
+      {
+        fields: {
+          title: {
+            "en-US": "images",
+          },
+          file: {
+            "en-US": {
+              contentType: "image/jpeg",
+              fileName: faker.datatype.number(5) + "-" + data.zipcode + ".jpg",
+              upload: uploadHref,
             },
-          })
-          .then(entry => {entry.publish(); return environment.getEntry(entry.sys.id)})          
-          .then(function (entry: Entry) {
-            // 5 create a new asset in my Contentful media section
-            environment
-              .createAssetWithId(faker.datatype.number(4).toString(), {
-                fields: {
-                  title: {
-                    "en-US": data.streetAddress,
-                  },
-                  file: {
-                    "en-US": {
-                      contentType: "image/jpeg",
-                      fileName: data.streetAddress + ".jpeg",
-                      upload: uploadHref,
-                    },
-                  },
-                },
-              })
-              .then((asset) => asset.processForAllLocales())
-              .then((asset) => asset.publish())
-              // .then(function (asset) {
-              //   // assign uploaded image as an entry field
-              //   entry.fields["images"]["en-US"] = {
-              //     sys: {
-              //       id: asset.sys.id, 
-              //       linkType: "Asset", 
-              //       type: "Link" 
-              //     },
-              //   };
-              
-              //   return entry.update()
-              // });
-              console.log('Entry object value: ', entry)
-              return entry.update()
-          })
-          .catch(err => console.log("Error Message!: ", err))
-      });
-    });
-  };
+          },
+        },
+      }
+    );
+    // reassign `asset` to have the latest version number
+    asset = await asset.processForAllLocales();
+    asset = await asset.publish();
+
+    /**
+     * Update entry with new asset
+     */
+    entry.fields["images"]["en-US"] = {
+      sys: {
+        id: asset.sys.id,
+        linkType: "Asset",
+        type: "Link",
+      },
+    };  
+    entry = await entry.update();
+    entry = await entry.publish();
+  }
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -290,33 +295,6 @@ export default function PostForm() {
                               setSelectedImage={setSelectedImage}
                               image={values.images}
                             />
-
-                            {/* <input
-                              type="file"
-                              multiple
-                              name="images[]"
-                              accept="images/*"
-                              id="raised-button-file"
-                              onChange={(event) =>
-                                setFieldValue("images", event.target.value)
-                              }
-                              className={classes.fileInput}
-                            />
-                            <label htmlFor="raised-button-file">
-                              <Button
-                                component="span"
-                                id="file-browser"
-                                className={classes.fileInputBtn}
-                                // onClick={() => setFiles(values.images[0].fields.file.url)}
-                              >
-                                <Icon>perm_media</Icon>
-                              </Button>
-                            </label>
-                            <span className={classes.text}>
-                              {values.images.length > 0
-                                ? values.images
-                                : "Upload Images"}
-                            </span>  */}
                           </>
                         ) : (
                           <DateTimePicker
@@ -344,7 +322,6 @@ export default function PostForm() {
                               console.log("It's been submitted!");
                               submitForm();
                               handleSubmit(values);
-                              // postProperty(values);
                             }
                           }}
                         >
