@@ -24,15 +24,6 @@ const client = createClient({
 });
 
 const useStyles = makeStyles((theme) => ({
-  // fileInputBtn: {
-  //   color: alpha(color.offWhite, 0.65),
-  //   marginRight: "20px",
-  //   padding: "10px 30px",
-  //   border: `1px solid ${alpha("#000", 0.25)}`,
-  // },
-  // fileInput: {
-  //   display: "none",
-  // },
   formWrapper: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(8),
@@ -225,23 +216,23 @@ export default function PostForm() {
           },
         },
       }
-    );
-    // reassign `asset` to have the latest version number
-    asset = await asset.processForAllLocales();
-    asset = await asset.publish();
+    );``
+    // // reassign `asset` to have the latest version number
+    const processedAsset = await asset.processForAllLocales();
+    const publishedAsset = await processedAsset.publish();
 
     /**
      * Update entry with new asset
      */
     entry.fields["images"]["en-US"] = {
       sys: {
-        id: asset.sys.id,
+        id: publishedAsset.sys.id,
         linkType: "Asset",
         type: "Link",
       },
     };  
-    entry = await entry.update();
-    entry = await entry.publish();
+    const updatedEntry = await entry.update();
+    entry = await updatedEntry.publish();
   }
 
   return (
