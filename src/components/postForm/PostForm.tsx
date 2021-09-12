@@ -124,12 +124,12 @@ export default function PostForm() {
     data: Omit<Property, "id">,
     uploadHref: string
   ) {
+    // #1 Get Space
     const space = await client.getSpace(process.env.NEXT_CONTENTFUL_SPACE_ID);
+    // #2 Get Environment
     const environment = await space.getEnvironment("master");
 
-    /**
-     * Entry creation and publish
-     */
+    // #3 Create Entry
     let entry = await environment.createEntry("propertyListings", {
       fields: {
         id: {
@@ -190,16 +190,14 @@ export default function PostForm() {
           "en-US": data.petFriendly,
         },
         images: {
-          "en-US": []
+          "en-US": [],
         },
       },
     });
-    // reassign `entry` to have the latest version number
+    // #4 Reassign Entry to have latest version
     entry = await entry.publish();
 
-    /**
-     * Asset creation and publish
-     */
+    // #5 Asset Creation
     let asset = await environment.createAssetWithId(
       faker.datatype.number(4).toString(),
       {
@@ -216,23 +214,23 @@ export default function PostForm() {
           },
         },
       }
-    );``
-    // // reassign `asset` to have the latest version number
-    const processedAsset = await asset.processForAllLocales();
-    const publishedAsset = await processedAsset.publish();
+    );
+    // #6 Asset Publish
+    asset = await asset.processForAllLocales();
+    asset = await asset.publish();
 
-    /**
-     * Update entry with new asset
-     */
-    entry.fields["images"]["en-US"] = {
-      sys: {
-        id: publishedAsset.sys.id,
-        linkType: "Asset",
-        type: "Link",
+    // //#7 Update Entry With New Asset
+    entry.fields["images"] = {
+      "en-US": {
+        sys: {
+          id: asset.sys.id,
+          linkType: "Environment",
+          type: "Link",
+        },
       },
-    };  
-    const updatedEntry = await entry.update();
-    entry = await updatedEntry.publish();
+    };
+    entry = await entry.update().then((entry) => entry.publish());
+    entry = await entry.publish();
   }
 
   return (
