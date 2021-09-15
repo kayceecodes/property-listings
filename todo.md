@@ -1,3 +1,8 @@
+## Check and see..
+    If the problem was with the...
+    - images in contentful model having more than one file or just one file
+    - createAssetWithId function instead of createAsset function
+
 ## To do
     X Add modal
     X Make sure state is set before posting to contentful
@@ -6,6 +11,10 @@
     Figure out access to post property
     Override textfield in createMui()
     Break the createEntry call to make sure things works as should when it's fixed
+
+## To Do 9/15
+    Resize images in Property Modal
+    Check if the form is working properly with correct conditions/requirements
 
 ## You have to use environment.getEntry(EntryIDHere) and 
 ##  then convert the return into an object using .toPlainObject(); and 

@@ -69,7 +69,7 @@ export default function Upload(props: Props) {
         </Button>
       </label>
       <span className={classes.text}>
-        {image.length > 0 ? image : "Upload Images"}
+        {image.length > 0 ? image : "Upload Image"}
       </span>
     </>
   );

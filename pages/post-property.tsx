@@ -56,7 +56,7 @@ export default function PostPropertyPage(props: Props) {
               <GridContainer justifyContent="center">
                 {/* <PostPropertyForm /> */}
                 <Box
-                  style={{ backgroundColor: lighten(color.darkSlateBlue, 0.3) }}
+                  style={{ backgroundColor: lighten(color.darkSlateBlue, 0.3), borderRadius: '5px', boxShadow: '0 0px 15px rgba(0,0,0,0.5)' }}
                   my={5}
                 >
                   <PostForm />

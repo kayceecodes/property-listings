@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { Theme } from '@material-ui/core/styles/createTheme'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import React, { CSSProperties } from 'react'
 import Layout from 'src/hoc/Layout'

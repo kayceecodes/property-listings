@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { Theme } from '@material-ui/core/styles/createTheme'
 import Modal from '@material-ui/core/Modal/Modal'
 import Paper from '@material-ui/core/Paper/Paper'
 import makeStyles from '@material-ui/core/styles/makeStyles'
