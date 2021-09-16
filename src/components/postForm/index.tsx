@@ -14,10 +14,9 @@ import DateTimePicker from "./FormsUI/DateTimePicker";
 import { color } from "@/src/theme/Color";
 import { alpha, lighten } from "@material-ui/core/styles/colorManipulator";
 import Popper from "@material-ui/core/Popper/Popper";
-import Icon from "@material-ui/core/Icon/Icon";
-import { Entry, Environment, Space } from "contentful-management/types";
 import { createClient } from "contentful-management";
 import Upload from "./FormsUI/Upload/Upload";
+import SearchBox from "./SearchBox/SearchBox";
 
 const client = createClient({
   accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
@@ -51,25 +50,19 @@ const useStyles = makeStyles((theme) => ({
 
 // const INITIAL_FORM_STATE: Omit<PropertyPost, "id"> = {
 const INITIAL_FORM_STATE: any = {
-  firstName: "John",
-  lastName: "Doe",
-  email: "jdoe@gmail.com",
+  firstName: "Kenny",
+  lastName: "Belmany",
+  email: "kbel@gmail.com",
   phone: "267 483 3003",
-  price: "$26000.00",
-  streetAddress: "434 Columbus Blvd",
-  city: "Philadelphia",
-  state: "Pennsylvania",
-  zipcode: "92130",
-  latitude: -39.94217,
-  longitude: -75.17629,
+  price: "$19900.00",
   images: [],
-  bedrooms: 1,
-  bathrooms: 1,
-  sqft: 30050,
-  carSpaces: 3,
-  type: "Condominium",
+  bedrooms: 2,
+  bathrooms: 2,
+  sqft: 50050,
+  carSpaces: 2,
+  type: "House",
   datePosted: "",
-  petFriendly: "No Pets",
+  petFriendly: "Yes",
 };
 const FORM_VALIDATION = Yup.object().shape({
   firstName: Yup.string().required("Required"),
@@ -80,12 +73,7 @@ const FORM_VALIDATION = Yup.object().shape({
     .typeError("Please enter a valid phone number")
     .required("Required"),
   price: Yup.string().required("Required"),
-  streetAddress: Yup.string().required("Required"),
-  city: Yup.string().required("Required"),
-  zipcode: Yup.string().required("Required"),
-  state: Yup.string().required("Required"),
-  /**/ latitude: Yup.number().required("Required"),
-  /**/ longitude: Yup.number().required("Required"),
+  address: Yup.string().required("Required"),
   // images: Yup.string().required('Required'),
   /**/ bedrooms: Yup.number().required("Required"),
   /**/ sqft: Yup.number().required("Required"),
@@ -198,37 +186,34 @@ export default function PostForm() {
     entry = await entry.publish();
 
     // #5 Asset Creation
-    let asset = await environment.createAsset(
-      {
-        fields: {
-          title: {
-            "en-US": "image",
-          },
-          file: {
-            "en-US": {
-              contentType: "image/jpeg",
-              fileName: faker.datatype.number(5) + "-" + data.zipcode + ".jpg",
-              upload: uploadHref,
-            },
+    let asset = await environment.createAsset({
+      fields: {
+        title: {
+          "en-US": "image",
+        },
+        file: {
+          "en-US": {
+            contentType: "image/jpeg",
+            fileName: faker.datatype.number(5) + "-" + data.zipcode + ".jpg",
+            upload: uploadHref,
           },
         },
-      }
-    );
+      },
+    });
     // #6 Asset Publish
     asset = await asset.processForAllLocales();
     asset = await asset.publish();
 
-     // //#7 Update Entry With New Asset
-     entry.fields["image"]['en-US'] = {
+    // //#7 Update Entry With New Asset
+    entry.fields["image"]["en-US"] = {
       sys: {
         id: asset.sys.id,
         linkType: "Asset",
         type: "Link",
       },
-      
-  };
-  entry = await entry.update()
-  entry = await entry.publish()
+    };
+    entry = await entry.update();
+    entry = await entry.publish();
   }
 
   return (
@@ -283,6 +268,8 @@ export default function PostForm() {
                               image={values.images}
                             />
                           </>
+                        ) : prop.type === "auto-complete" ? (
+                          <SearchBox onSelectAddress={onSelectAddress} />
                         ) : (
                           <DateTimePicker
                             name="datePosted"
