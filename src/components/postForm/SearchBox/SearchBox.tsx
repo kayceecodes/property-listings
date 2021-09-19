@@ -1,30 +1,82 @@
-import { ChangeEvent } from "react";
+import React, { ChangeEvent, MouseEvent } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
+  Suggestion,
 } from "use-places-autocomplete";
 import { useGoogleMapsScript, Libraries } from "use-google-maps-script";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
+import TextField from "@material-ui/core/TextField/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete/Autocomplete";
+import Icon from "@material-ui/core/Icon/Icon";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useField } from "formik";
+import { color } from "@/src/theme/Color";
+import { darken } from "@mui/system";
+import GridContainer from "@/src/ui/grid/GridContainer";
+import Grid from "@material-ui/core/Grid";
 
 interface ISearchBoxProps {
-  onSelectAddress: (
-    address: string,
-    latitude?: number | null,
-    longitude?: number | null
-  ) => void;
+  name: string;
+  label: string;
+  setFieldValue: (key: string, value: string | number) => void;
+  // onSelectAddress: (
+  //   address: string,
+  //   latitude?: number | null,
+  //   longitude?: number | null
+  // ) => void;
   defaultValue: string;
 }
 
 const libraries: Libraries = ["places"];
 
-export function SearchBox({ onSelectAddress, defaultValue }: ISearchBoxProps) {
+const useStyles = makeStyles((theme) => ({
+  autocomplete: {
+    borderRadius: "4px",
+    border: "1.2px solid #46494d",
+    padding: '0 5px 5px',
+    [theme.breakpoints.up('sm')]: {
+      padding: "0 25px 5px 15px",
+    }
+  },
+  textField: {
+    marginTop: 2,
+  },
+  optionsText: {
+    color: color.dimGray,
+    fontSize: "0.8rem",
+    "&:hover": {
+      backgroundColor: color.offWhite,
+    },
+  },
+}));
+
+export function SearchBox({
+  setFieldValue,
+  defaultValue,
+  name,
+}: ISearchBoxProps) {
+  const [field, meta] = useField(name);
+  const handleChange = (event: any) => {
+    const { value } = event.target;
+    setFieldValue(name, value);
+  };
+  const configTextField = {
+    ...field,
+    error: false,
+    helperText: "",
+  };
+  const inputStyle = {
+    WebkitBoxShadow: "0 0 0 1000px #5b5f64 inset",
+    border: "0px solid transparent",
+    borderRadius: "0px",
+  };
+
+  if (meta && meta.touched && meta.error) {
+    configTextField.error = true;
+    configTextField.helperText = meta.error;
+  }
+
+  const classes = useStyles();
   const { isLoaded, loadError } = useGoogleMapsScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? "",
     libraries,
@@ -34,14 +86,27 @@ export function SearchBox({ onSelectAddress, defaultValue }: ISearchBoxProps) {
   if (loadError) return <div>Error loading</div>;
 
   return (
-    <ReadySearchBox
-      onSelectAddress={onSelectAddress}
-      defaultValue={defaultValue}
-    />
+    <div>
+      <ReadySearchBox
+        name={name}
+        configTextField={configTextField}
+        setFieldValue={setFieldValue}
+        defaultValue={defaultValue}
+      />
+    </div>
   );
 }
 
-function ReadySearchBox({ onSelectAddress, defaultValue }: ISearchBoxProps) {
+function ReadySearchBox({
+  setFieldValue,
+  defaultValue,
+  name,
+  configTextField,
+}: Omit<ISearchBoxProps, "name" | "label"> & {
+  name: string;
+  configTextField: any;
+}) {
+  const classes = useStyles();
   const {
     ready,
     value,
@@ -50,47 +115,68 @@ function ReadySearchBox({ onSelectAddress, defaultValue }: ISearchBoxProps) {
     clearSuggestions,
   } = usePlacesAutocomplete({ debounce: 300, defaultValue });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    if (e.target.value === "") {
-      onSelectAddress("", null, null);
-    }
+  const handleChange = (e: any) => {
+    setValue(e.currentTarget.value);
+    console.log("handleChange() value: ", value);
+    console.log("handleChange() event.currentTarget.value: ", e.target.value);
+    // if (e.target.value === "") {
+    //   setFieldValue("address", "");
+    //   setFieldValue("latitude", 0);
+    //   setFieldValue("longitude", 0);
+    // }
   };
 
-  const handleSelect = async (address: string) => {
-    setValue(address, false);
+  const handleSelect = async (event: any, value) => {
+    console.log("handleSelect() Clicked handleSelect!");
+    console.log("handleSelect() Handle Select event.currentTarget.value: ", event.target.innerHTML);
+    let address = event.target.innerHTML;
+    setValue(event.currentTarget.value, false);
     clearSuggestions();
 
     try {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
-      onSelectAddress(address, lat, lng);
+      setFieldValue("address", address);
+      setFieldValue("latitude", lat);
+      setFieldValue("longitude", lng);
     } catch (error) {
       console.error(`😱 Error:`, error);
     }
+    console.log("Status in ReadySearchBox: ", status);
   };
 
   return (
-    <Combobox onSelect={handleSelect}>
-      <ComboboxInput
-        id="search"
-        value={value}
-        onChange={handleChange}
-        disabled={!ready}
-        placeholder="Search your location"
-        className="w-full p-2"
-        autoComplete="off"
-      />
-      <ComboboxPopover>
-        <ComboboxList>
-          {status === "OK" &&
-            data.map(({ place_id, description }) => (
-              <ComboboxOption key={place_id} value={description} />
-            ))}
-        </ComboboxList>
-      </ComboboxPopover>
-    </Combobox>
+    <Autocomplete
+      classes={{
+        root: classes.autocomplete,
+        option: classes.optionsText,
+        listbox: classes.optionsText,
+      }}
+      onChange={handleSelect}
+      // onChange={(event, changeValue) => handleSelect(event, changeValue)}
+      id="free-solo-demo"
+      freeSolo
+      options={data.map(({place_id, description}) => description as string)}
+      renderInput={(params) => (
+        <Grid container justifyContent="space-around" alignItems="center">
+          <Grid item xs={1} style={{padding: '15px 0px 0 0'}}>
+            <Icon>search</Icon>
+          </Grid>
+          <Grid item xs={10}>
+            <TextField
+              {...params}
+              onChange={(event: any) => handleChange(event)}
+              size="small"
+              id="outlined-size-small"
+              label="Search Address"
+              margin="normal"
+              className={classes.textField}
+            />
+          </Grid>
+        </Grid>
+      )}
+    />
   );
 }
 
-export default SearchBox
+export default SearchBox;

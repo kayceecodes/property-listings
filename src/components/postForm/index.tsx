@@ -17,6 +17,7 @@ import Popper from "@material-ui/core/Popper/Popper";
 import { createClient } from "contentful-management";
 import Upload from "./FormsUI/Upload/Upload";
 import SearchBox from "./SearchBox/SearchBox";
+import {LittleSearchBox} from './SearchBox/index'
 
 const client = createClient({
   accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
@@ -138,9 +139,12 @@ export default function PostForm() {
         price: {
           "en-US": data.price,
         },
-        streetAddress: {
-          "en-US": data.streetAddress,
+        address: {
+          "en-US": data.address,
         },
+        // streetAddress: {
+        //   "en-US": data.streetAddress,
+        // },
         city: {
           "en-US": data.city,
         },
@@ -252,7 +256,17 @@ export default function PostForm() {
                         xs={prop.xs as GridSize}
                         sm={prop.sm as GridSize}
                       >
-                        {prop.type === "textfield" ? (
+                        {prop.type === "auto-complete" ? (
+                          // <LittleSearchBox />
+                          <SearchBox
+                            name={prop.name}
+                            label={prop.label}
+                            setFieldValue={setFieldValue}
+                            defaultValue=''
+                          />
+
+
+                        ) : prop.type === "textfield" ? (
                           <TextField name={prop.name} label={prop.label} />
                         ) : prop.type === "select" ? (
                           <Select
@@ -261,15 +275,11 @@ export default function PostForm() {
                             options={prop.options}
                           />
                         ) : prop.type === "file" ? (
-                          <>
-                            <Upload
-                              setFieldValue={setFieldValue}
-                              setSelectedImage={setSelectedImage}
-                              image={values.images}
-                            />
-                          </>
-                        ) : prop.type === "auto-complete" ? (
-                          <SearchBox onSelectAddress={onSelectAddress} />
+                          <Upload
+                            setFieldValue={setFieldValue}
+                            setSelectedImage={setSelectedImage}
+                            image={values.images}
+                          />
                         ) : (
                           <DateTimePicker
                             name="datePosted"

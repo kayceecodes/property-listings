@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "500px",
   },
   imgWrapper: {
-    maxHeight: "550px",
+    maxHeight: "470px",
     overflow: "hidden",
   },
   paper: {
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MyCarousel = ({ selectedProperty }: Pick<Props, "selectedProperty">) => {
   const classes = useStyles();
   const {
-    streetAddress,
+    address,
     city,
     state,
     zipcode,
@@ -84,7 +84,7 @@ const MyCarousel = ({ selectedProperty }: Pick<Props, "selectedProperty">) => {
           </div>
           <Box mt={5}>
             <div>
-              <h3>{streetAddress}</h3>
+              <h3>{address}</h3>
               <div>{city + " " + state + " " + zipcode}</div>
             </div>
             <p>
@@ -122,7 +122,7 @@ const MyCarousel = ({ selectedProperty }: Pick<Props, "selectedProperty">) => {
           <div>
             <Box mt={5}>
               <div>
-                <h3>{streetAddress}</h3>
+                <h3>{address}</h3>
                 <div>{city + " " + state + " " + zipcode}</div>
               </div>
               <p>
@@ -179,7 +179,7 @@ export default function PropertyModal({
                 <GridContainer justifyContent="space-between">
                   <div>
                     <div className={classes.darkBold}>
-                      {selectedProperty.streetAddress}
+                      {selectedProperty.address}
                     </div>
                     <div>{selectedProperty.price}</div>
                   </div>

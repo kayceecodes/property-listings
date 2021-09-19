@@ -39,8 +39,8 @@ export default function Index({ properties, setOpen }: Props) {
         margin={'0 auto'}
         justifyContent='center'
       >
-        {properties.map((property: Property) => (
-          <Card key={property.streetAddress}
+        {properties.map((property: Property, index: number) => (
+          <Card key={property.id + index}
           data-testid='card'
           setOpen={setOpen}
           property={property} />

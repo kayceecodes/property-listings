@@ -23,7 +23,8 @@ export interface Property {
   email: string
   phone: string
 
-  streetAddress: string
+  address: string
+  // streetAddress: string
   city: string
   state: string
   zipcode: string

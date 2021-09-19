@@ -109,6 +109,13 @@ export const States = [
 export const inputProps = [
   {
     xs: 12,
+    sm: 12,
+    name: 'address',
+    label: 'Address',
+    type: 'auto-complete'
+  },
+  {
+    xs: 12,
     sm: 6,
     name: 'firstName',
     label: 'First Name',
@@ -134,12 +141,6 @@ export const inputProps = [
     name: 'phone',
     label: 'Phone',
     type: 'textfield',
-  },
-  {
-    xs: 12,
-    sm: 12,
-    label: 'Address',
-    type: 'auto-complete'
   },
   // {
   //   xs: 12,

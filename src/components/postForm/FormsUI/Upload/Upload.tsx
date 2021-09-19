@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Upload(props: Props) {
   const { setFieldValue, setSelectedImage, image } = props;
   const classes = useStyles();
-  console.log("images in Upload component: ", image);
+  // console.log("images in Upload component: ", image);
 
   //   const uploadImage = (files: FileList) => {
   //     const formData = new FormData()
