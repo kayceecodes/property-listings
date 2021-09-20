@@ -118,6 +118,7 @@ export default function PostForm() {
     // #2 Get Environment
     const environment = await space.getEnvironment("master");
 
+    console.log('data.lng in postProperty() : ', data.longitude)
     // #3 Create Entry
     let entry = await environment.createEntry("propertyListings", {
       fields: {
