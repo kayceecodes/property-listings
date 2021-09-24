@@ -40,25 +40,25 @@ export default function PostPropertyPage(props: Props) {
               open={open}
               setOpen={setOpen}
             />
-            <GridContainer justifyContent={matches.md ? 'space-between' : 'center'}>
-              <Box mb={5}>
+            <GridContainer direction="column">
+              <Box mb={3}>
                 <Typography
                   component="div"
                   variant={`${matches.md ? 'h3' : 'h4'}`}
                 >
                   Post Your Property
-                  <Typography variant="body1" component="div">
+                  <Typography style={{marginTop: '30px'}} variant="body1" component="div">
                     Post the property you would like to put on the market below.{' '}
                     <br />
-                    You would be posting it as a Guest user.
+                    Then check on it in the <strong>Listings</strong> page.
                   </Typography>
                 </Typography>
               </Box>
               <GridContainer justifyContent="center">
                 {/* <PostPropertyForm /> */}
                 <Box
-                  style={{ backgroundColor: lighten(color.darkSlateBlue, 0.3), borderRadius: '5px', boxShadow: '0 0px 15px rgba(0,0,0,0.5)' }}
-                  my={5}
+                  style={{ backgroundColor: lighten(color.darkSlateBlue, 0.3), borderRadius: '5px', boxShadow: '0 0px 15px rgba(0,0,0,0.8)' }}
+                  mt={13}
                 >
                   <PostForm />
                 </Box>

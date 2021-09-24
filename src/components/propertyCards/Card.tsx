@@ -93,11 +93,7 @@ export default function PropertyCard({ property, setOpen }: Props) {
           </Typography>
           <br />
           <Typography variant="subtitle2">
-            {property.address +
-              " " +
-              property.city +
-              ", " +
-              property.state}
+            {property.address}
           </Typography>
           <Typography variant="body1">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum

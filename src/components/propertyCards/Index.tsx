@@ -40,7 +40,7 @@ export default function Index({ properties, setOpen }: Props) {
         justifyContent='center'
       >
         {properties.map((property: Property, index: number) => (
-          <Card key={property.id + index}
+          <Card key={property.id}
           data-testid='card'
           setOpen={setOpen}
           property={property} />

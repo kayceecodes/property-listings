@@ -57,7 +57,6 @@ const INITIAL_FORM_STATE: any = {
   email: "jdoe@gmail.com",
   phone: "267 483 3003",
   price: "$26000.00",
-  streetAddress: "434 Columbus Blvd",
   city: "Philadelphia",
   state: "Pennsylvania",
   zipcode: "92130",
@@ -81,7 +80,7 @@ const FORM_VALIDATION = Yup.object().shape({
     .typeError("Please enter a valid phone number")
     .required("Required"),
   price: Yup.string().required("Required"),
-  streetAddress: Yup.string().required("Required"),
+  address: Yup.string().required("Required"),
   city: Yup.string().required("Required"),
   zipcode: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
@@ -134,7 +133,7 @@ export default function PostForm() {
     let entry = await environment.createEntry("propertyListings", {
       fields: {
         id: {
-          "en-US": faker.datatype.number(4).toString(),
+          "en-US": faker.datatype.number(4).toString() + '-' + faker.datatype.number(4).toString(),
         },
         firstName: {
           "en-US": data.firstName,
@@ -151,8 +150,8 @@ export default function PostForm() {
         price: {
           "en-US": data.price,
         },
-        streetAddress: {
-          "en-US": data.streetAddress,
+        address: {
+          "en-US": data.address,
         },
         city: {
           "en-US": data.city,
@@ -321,7 +320,7 @@ export default function PostForm() {
                           Please finish the form.
                         </div>
                       </Popper>
-                      {/* <pre>{JSON.stringify(values.images)}</pre> */}
+                      <pre>{JSON.stringify(values)}</pre>
                     </Grid>
                   </Grid>
                 </Form>

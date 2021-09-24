@@ -47,10 +47,10 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const routes = [
-  {
-    path: '/',
-    text: 'Home',
-  },
+  // {
+  //   path: '/',
+  //   text: 'Home',
+  // },
   {
     path: '/listings',
     text: 'Listings',

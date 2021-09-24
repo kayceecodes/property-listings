@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
   autocomplete: {
     borderRadius: "4px",
     border: "1.2px solid #46494d",
-    padding: '0 5px 5px',
-    [theme.breakpoints.up('sm')]: {
+    padding: "0 5px 5px",
+    [theme.breakpoints.up("sm")]: {
       padding: "0 25px 5px 15px",
-    }
+    },
   },
   textField: {
     marginTop: 2,
@@ -117,25 +117,25 @@ function ReadySearchBox({
 
   const handleChange = (e: any) => {
     setValue(e.currentTarget.value);
-    console.log("handleChange() value: ", value);
-    console.log("handleChange() event.currentTarget.value: ", e.target.value);
-    // if (e.target.value === "") {
-    //   setFieldValue("address", "");
-    //   setFieldValue("latitude", 0);
-    //   setFieldValue("longitude", 0);
-    // }
+    // console.log("handleChange() value: ", value);
+    // console.log("handleChange() event.currentTarget.value: ", e.target.value);
+    if (e.target.value === "") {
+      setFieldValue("address", "");
+      setFieldValue("latitude", 0);
+      setFieldValue("longitude", 0);
+    }
   };
 
-  const handleSelect = async (event: any, value) => {
-    console.log("handleSelect() Clicked handleSelect!");
-    console.log("handleSelect() Handle Select event.currentTarget.value: ", event.target.innerHTML);
-    let address = event.target.innerHTML;
-    setValue(event.currentTarget.value, false);
-    clearSuggestions();
-
+  const handleSelect = async (event: any, string) => {
+    let address = (event.target.innerHTML || string);
+   
+    // setValue(address, false);
+      clearSuggestions();
+   
     try {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
+    
       setFieldValue("address", address);
       setFieldValue("latitude", lat);
       setFieldValue("longitude", lng);
@@ -152,22 +152,24 @@ function ReadySearchBox({
         option: classes.optionsText,
         listbox: classes.optionsText,
       }}
-      onChange={handleSelect}
-      // onChange={(event, changeValue) => handleSelect(event, changeValue)}
+      // onChange={handleSelect}
+      onChange={(event, string) => handleSelect(event, string)}
       id="free-solo-demo"
       freeSolo
-      options={data.map(({place_id, description}) => description as string)}
+      options={data.map(({ place_id, description }) => description as string)}
       renderInput={(params) => (
         <Grid container justifyContent="space-around" alignItems="center">
-          <Grid item xs={1} style={{padding: '15px 0px 0 0'}}>
+          <Grid item xs={1} style={{ padding: "15px 0px 0 0" }}>
             <Icon>search</Icon>
           </Grid>
           <Grid item xs={10}>
             <TextField
               {...params}
+              {...configTextField}
               onChange={(event: any) => handleChange(event)}
               size="small"
               id="outlined-size-small"
+              name={name}
               label="Search Address"
               margin="normal"
               className={classes.textField}

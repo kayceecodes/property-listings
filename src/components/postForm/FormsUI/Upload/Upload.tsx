@@ -3,12 +3,14 @@ import Button from "@material-ui/core/Button/Button";
 import Icon from "@material-ui/core/Icon/Icon";
 import { alpha } from "@material-ui/core/styles/colorManipulator";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useField } from "formik";
 import React from "react";
 import { ContentfulImages } from "types/interfaces/property";
 
 interface Props {
   setFieldValue: (key: string, value: string) => void;
-  setSelectedImage: React.Dispatch<React.SetStateAction<FileList>>
+  setSelectedImage: React.Dispatch<React.SetStateAction<FileList>>;
+  name: string;
   image: FileList;
 }
 
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Upload(props: Props) {
-  const { setFieldValue, setSelectedImage, image } = props;
+  const { setFieldValue, setSelectedImage, image, name } = props;
   const classes = useStyles();
   // console.log("images in Upload component: ", image);
 
@@ -44,18 +46,30 @@ export default function Upload(props: Props) {
   //     .then((res) => console.log(res))
   // }
 
+  const [field, meta] = useField(name);
+  const configUpload = {
+    ...field,
+    error: false,
+    helperText: "",
+  };
+
+  if (meta && meta.touched && meta.error) {
+    configUpload.error = true;
+    configUpload.helperText = meta.error;
+  }
+
   return (
     <>
       <input
         type="file"
         multiple
-        name="images[]"
+        name="image"
         accept="images/*"
         id="raised-button-file"
-        onChange={(event) => {setFieldValue("images", event.target.value)
-      setSelectedImage(event.target.files);
-      console.log('Values.images in Upload.tsx -> onChange:', image)
-      }}
+        onChange={(event) => {
+          setFieldValue("image", event.target.value);
+          setSelectedImage(event.target.files);
+        }}
         className={classes.fileInput}
       />
       <label htmlFor="raised-button-file">
@@ -69,7 +83,7 @@ export default function Upload(props: Props) {
         </Button>
       </label>
       <span className={classes.text}>
-        {image.length > 0 ? image : "Upload Image"}
+        {image ? image : "Upload Image"}
       </span>
     </>
   );

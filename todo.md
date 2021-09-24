@@ -12,7 +12,8 @@
     Override textfield in createMui()
     Break the createEntry call to make sure things works as should when it's fixed
     Figure data flow of Lat & Lng,
-
+    Remove duplicate key of "2"
+    Add onEnter Event for Geocode api call
 ## To Do 9/15
     Resize images in Property Modal
     Check if the form is working properly with correct conditions/requirements

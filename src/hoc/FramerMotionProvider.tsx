@@ -17,24 +17,24 @@ const FramerMotionProvider = ({ children }: Props) => {
         variants: {
           initial: {
             opacity: 0,
-            x: "0vw",
-            scale: 1,
+            // x: "-2vw",
+            // scale: 1,
           },
           in: {
             opacity: 1,
-            x: 0,
-            scale: 1,
+            // x: "0vw",
+            // scale: 1,
           },
           out: {
             opacity: 0,
-            x: "2vw",
-            scale: 1.002,
+            // x: "2vw",
+            // scale: 1,
           },
         },
         transition: {
           type: "tween", // Tween: animation that looks like it's evolving/transforming into something else
           ease: "anticipate",
-          duration: 0.55,
+          duration: 0.9,
         },
       },
     }
