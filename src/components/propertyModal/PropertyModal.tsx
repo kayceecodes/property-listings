@@ -61,10 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MyCarousel = ({ selectedProperty }: Pick<Props, "selectedProperty">) => {
   const classes = useStyles();
   const {
-    address,
-    city,
-    state,
-    zipcode,
+    address,    
     firstName,
     lastName,
     email,
@@ -85,7 +82,6 @@ const MyCarousel = ({ selectedProperty }: Pick<Props, "selectedProperty">) => {
           <Box mt={5}>
             <div>
               <h3>{address}</h3>
-              <div>{city + " " + state + " " + zipcode}</div>
             </div>
             <p>
               Property Owner: <span>{firstName + " " + lastName}</span>
@@ -123,7 +119,6 @@ const MyCarousel = ({ selectedProperty }: Pick<Props, "selectedProperty">) => {
             <Box mt={5}>
               <div>
                 <h3>{address}</h3>
-                <div>{city + " " + state + " " + zipcode}</div>
               </div>
               <p>
                 Property Owner: <span>{firstName + " " + lastName}</span>

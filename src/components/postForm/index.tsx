@@ -15,7 +15,7 @@ import { color } from "@/src/theme/Color";
 import { alpha, lighten } from "@material-ui/core/styles/colorManipulator";
 import Popper from "@material-ui/core/Popper/Popper";
 import Upload from "./FormsUI/Upload/Upload";
-import SearchBox from "./SearchBox/SearchBox";
+import SearchBox from "./FormsUI/SearchBox/SearchBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box/Box";
 import { useRouter } from "next/router";
