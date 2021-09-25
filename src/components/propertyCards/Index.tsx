@@ -7,7 +7,7 @@ import Card from './Card'
 import theme from '../../theme/Theme'
 import { Property } from '../../../types/interfaces/property'
 interface Props {
-  properties: any
+  properties: Property[]
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   }
 const useStyles = makeStyles((theme: Theme) => ({

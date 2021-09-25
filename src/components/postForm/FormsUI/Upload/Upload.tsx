@@ -33,20 +33,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Upload(props: Props) {
   const { setFieldValue, setSelectedImage, image, name } = props;
   const classes = useStyles();
-  // console.log("images in Upload component: ", image);
-
-  //   const uploadImage = (files: FileList) => {
-  //     const formData = new FormData()
-  //     formData.append('file', files[0])
-  //     formData.append('upload_preset', 'ubveh1ft')
-  //     fetch('https://api.cloudinary.com/v1_1/duezerehu/image/upload', {
-  //         method: 'POST',
-  //         body: formData
-  //     })
-  //     .then((res) => console.log(res))
-  // }
-
   const [field, meta] = useField(name);
+  
   const configUpload = {
     ...field,
     error: false,

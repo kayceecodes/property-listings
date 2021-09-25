@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import Typography from "@material-ui/core/Typography/Typography";
 import TextField from "./FormsUI/Textfield";
-import { Property, PropertyPost } from "types/interfaces/property";
+import { Property } from "types/interfaces/property";
 import Button from "@material-ui/core/Button/Button";
 import Select from "./FormsUI/Select";
 import { inputProps } from "../../../utils/Constants";
@@ -14,17 +14,13 @@ import DateTimePicker from "./FormsUI/DateTimePicker";
 import { color } from "@/src/theme/Color";
 import { alpha, lighten } from "@material-ui/core/styles/colorManipulator";
 import Popper from "@material-ui/core/Popper/Popper";
-import { createClient } from "contentful-management";
 import Upload from "./FormsUI/Upload/Upload";
 import SearchBox from "./SearchBox/SearchBox";
-import { LittleSearchBox } from "./SearchBox/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box/Box";
 import { useRouter } from "next/router";
-
-const client = createClient({
-  accessToken: process.env.NEXT_CONTENTFUL_PERSONAL_ACCESS_TOKEN as string,
-});
+import { createEntryWithAsset } from "@/src/contentful/createEntryWithAsset";
+import GridContainer from "@/src/ui/grid/GridContainer";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -44,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff !important",
     paddingTop: "15px",
     paddingBottom: "15px",
-    fontSize: '1.1rem',
-    letterSpacing: '1.2px',
+    fontSize: "1.1rem",
+    letterSpacing: "1.2px",
   },
   submitBtnWrapper: {
     width: "45%",
@@ -57,40 +53,62 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const INITIAL_FORM_STATE: Omit<PropertyPost, "id"> = {
-// const INITIAL_FORM_STATE: any = {
-// firstName: "Toni",
-// lastName: "Belmany",
-// email: "tbel@gmail.com",
-// phone: "267 483 3003",
-// price: "$1900.00",
-// images: [],
-// bedrooms: 2,
-// bathrooms: 2,
-// sqft: 50050,
-// carSpaces: 2,
-// type: "House",
-// status: "Rent",
-// datePosted: "",
-// petFriendly: "No",
-// };
-const INITIAL_FORM_STATE: any = {
+function Forms(props) {
+
+  switch (props.type) {
+    case "auto-complete":
+      return (
+        <SearchBox
+          name={props.name}
+          label={props.label}
+          setFieldValue={props.setFieldValue}
+          defaultValue=""
+        />
+      )
+    case "textfield":
+      return <TextField name={props.name} label={props.label} />;
+    case "select":
+      return (
+        <Select name={props.name} label={props.label} options={props.options} />
+      );
+    case "file":
+      return (
+        <Upload
+          name={props.name}
+          setFieldValue={props.setFieldValue}
+          setSelectedImage={props.setSelectedImage}
+          image={props.values.image}
+        />
+      )
+    case "date-picker":
+      return <DateTimePicker name="datePosted" label="Date Posted" />
+    default:
+      return <strong>No Match</strong>
+  }
+}
+
+const initialValues: Property = {
+  address: "",
   firstName: "Toni",
   lastName: "Miles",
   email: "tmiles@gmail.com",
   phone: "301 510 0229",
   price: "$3300.00",
-  image: "",
+  image: undefined,
+  images: undefined,
+  latitude: 0,
+  longitude: 0,
   bedrooms: 2,
   bathrooms: 2,
-  sqft: 50050,
+  sqft: 1800,
   carSpaces: 2,
   type: "House",
   status: "Rent",
   datePosted: "",
   petFriendly: "No",
 };
-const FORM_VALIDATION = Yup.object().shape({
+
+const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
@@ -112,8 +130,6 @@ const FORM_VALIDATION = Yup.object().shape({
 
 export default function PostForm() {
   const classes = useStyles();
-  var faker = require("faker");
-  var _ = require("lodash");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handlePopper = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -133,8 +149,8 @@ export default function PostForm() {
       body: formData,
     }).then((res) => res.json());
   };
-  const router = useRouter()
-  const handleSubmit = (values: Omit<PropertyPost, "id">) => {
+  const router = useRouter();
+  const handleSubmit = (values: Omit<Property, "id">) => {
     uploadImage().then((res) => createEntryWithAsset(values, res.secure_url));
   };
   const handleLoading = () => {
@@ -147,229 +163,110 @@ export default function PostForm() {
     }, 1500);
     setTimeout(() => {
       setFormLoading(false);
-    router.push('/listings')
+      router.push("/listings");
     }, 5000);
   };
-  async function createEntryWithAsset(
-    data: Omit<Property, "id">,
-    uploadHref: string
-  ) {
-    // #1 Get Space
-    const space = await client.getSpace(process.env.NEXT_CONTENTFUL_SPACE_ID);
-    // #2 Get Environment
-    const environment = await space.getEnvironment("master");
-    const random_id = faker.datatype.string(8)
-    // console.log('Random faker string: ', random_id)
-
-    console.log("data.lng in postProperty() : ", data.longitude);
-    // #3 Create Entry
-    let entry = await environment.createEntry("propertyListings", {
-      fields: {
-        id: {
-          "en-US": faker.datatype.number(2000).toString(),
-        },
-        firstName: {
-          "en-US": data.firstName,
-        },
-        lastName: {
-          "en-US": data.lastName,
-        },
-        email: {
-          "en-US": data.email,
-        },
-        phone: {
-          "en-US": data.phone,
-        },
-        price: {
-          "en-US": data.price,
-        },
-        address: {
-          "en-US": data.address,
-        },    
-        latitude: {
-          "en-US": Number(data.latitude as number),
-        },
-        longitude: {
-          "en-US": Number(data.longitude as number),
-        },
-        bedrooms: {
-          "en-US": data.bedrooms,
-        },
-        bathrooms: {
-          "en-US": data.bathrooms,
-        },
-        sqft: {
-          "en-US": Number(data.sqft),
-        },
-        carSpaces: {
-          "en-US": data.carSpaces,
-        },
-        type: {
-          "en-US": data.type,
-        },
-        datePosted: {
-          "en-US": data.datePosted,
-        },
-        petFriendly: {
-          "en-US": data.petFriendly,
-        },
-        image: {
-          "en-US": null,
-        },
-      },
-    });
-    // #4 Reassign Entry to have latest version
-    entry = await entry.publish();
-    // #5 Asset Creation
-    let asset = await environment.createAsset({
-      fields: {
-        title: {
-          "en-US": "image",
-        },
-        file: {
-          "en-US": {
-            contentType: "image/jpeg",
-            fileName: faker.datatype.number(5) + "-" + data.zipcode + ".jpg",
-            upload: uploadHref,
-          },
-        },
-      },
-    });
-    // #6 Asset Publish
-    asset = await asset.processForAllLocales();
-    asset = await asset.publish();
-
-    // //#7 Update Entry With New Asset
-    entry.fields["image"]["en-US"] = {
-      sys: {
-        id: asset.sys.id,
-        linkType: "Asset",
-        type: "Link",
-      },
-    };
-    entry = await entry.update();
-    entry = await entry.publish();
-  }
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        
-        <Container maxWidth="md">
-          {formLoading ? (
-            <Box justifyContent="center" alignItems="center">
-              <CircularProgress style={{padding: '40px'}} color="secondary" size={145} thickness={4} />
-            </Box>
-          ) : (
-            <div className={classes.formWrapper}>
-              <Formik
-                validateOnChange={true}
-                initialValues={{
-                  ...INITIAL_FORM_STATE,
-                }}
-                validationSchema={FORM_VALIDATION}
-                onSubmit={(values) => {
-                  console.log(values);
-                }}
-              >
-                {({
-                  isValid,
-                  dirty,
-                  errors,
-                  isSubmitting,
-                  submitForm,
-                  values,
-                  setFieldValue,
-                }) => (
-                  <Form>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography variant="h5">Property Details</Typography>
-                      </Grid>
-                      {inputProps.map((prop) => (
-                        <Grid
-                          key={prop.name}
-                          item
-                          xs={prop.xs as GridSize}
-                          sm={prop.sm as GridSize}
-                          md={prop.md as GridSize}
-                        >
-                          {prop.type === "auto-complete" ? (
-                            // <LittleSearchBox />
-                            <SearchBox
-                              name={prop.name}
-                              label={prop.label}
-                              setFieldValue={setFieldValue}
-                              defaultValue=""
-                            />
-                          ) : prop.type === "textfield" ? (
-                            <TextField name={prop.name} label={prop.label} />
-                          ) : prop.type === "select" ? (
-                            <Select
-                              name={prop.name}
-                              label={prop.label}
-                              options={prop.options}
-                            />
-                          ) : prop.type === "file" ? (
-                            <Upload
-                              name={prop.name}
-                              setFieldValue={setFieldValue}
-                              setSelectedImage={setSelectedImage}
-                              image={values.image}
-                            />
-                          ) : (
-                            <DateTimePicker
-                              name="datePosted"
-                              label="Date Posted"
-                            />
-                          )}
-                        </Grid>
-                      ))}
-                      {/* {console.log("Errors in Formik: ", errors)} */}
-                      {/* {console.log('Images: ', values.images[0].fields.file.url)} */}
-                      <Grid item xs={12}>
-                        <div className={classes.submitBtnWrapper}>
-                          <Button
-                            disabled={
-                              (!isValid && !dirty) || isSubmitting || !dirty
-                            }
-                            variant="outlined"
-                            fullWidth={true}
-                            className={classes.submitBtn}
-                            onClick={(event: any) => {
-                              if (!isValid || Object.keys(errors).length > 0) {
-                                handlePopper(event);
-                                console.log("not submitted..");
-                              } else {
-                                console.log("It's been submitted!");
-                                submitForm();
-                                handleSubmit(values);
-                                handleLoading();
-                              }
-                            }}
-                          >
-                            {btnLoading ? (
-                              <CircularProgress size={15} thickness={2} />
-                            ) : (
-                              <span>Submit</span>
-                            )}
-                          </Button>
-                        </div>
-                        <Popper open={open} anchorEl={anchorEl}>
-                          <div className={classes.paper}>
-                            Please finish the form.
-                          </div>
-                        </Popper>
-                        {/* <pre>{JSON.stringify(values.images)}</pre> */}
-                      </Grid>
+    <GridContainer xs={12}>
+      <Container maxWidth="md">
+        {formLoading ? (
+          <Box justifyContent="center" alignItems="center">
+            <CircularProgress
+              style={{ padding: "40px" }}
+              color="secondary"
+              size={145}
+              thickness={4}
+            />
+          </Box>
+        ) : (
+          <div className={classes.formWrapper}>
+            <Formik
+              validateOnChange={true}
+              initialValues={{
+                ...initialValues,
+              }}
+              onSubmit={(values) => {
+                console.log(values);
+              }}
+              validationSchema={validationSchema}
+            >
+              {({
+                isValid,
+                dirty,
+                errors,
+                isSubmitting,
+                submitForm,
+                values,
+                setFieldValue,
+              }) => (
+                <Form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography variant="h5">Property Details</Typography>
                     </Grid>
-                  </Form>
-                )}
-              </Formik>
-            </div>
-          )}
-        </Container>
-      </Grid>
-    </Grid>
+                    {inputProps.map((prop) => (
+                      <Grid
+                        key={prop.name}
+                        item
+                        xs={prop.xs as GridSize}
+                        sm={prop.sm as GridSize}
+                        md={prop.md as GridSize}
+                      >
+                        <Forms
+                          name={prop.name}
+                          label={prop.label}
+                          type={prop.type}
+                          setFieldValue={setFieldValue}
+                          defaultValue=""
+                          options={prop.options}
+                          setSelectedImage={setSelectedImage}
+                          values={values}
+                        />
+                      </Grid>
+                    ))}
+                    <Grid item xs={12}>
+                      <div className={classes.submitBtnWrapper}>
+                        <Button
+                          disabled={
+                            (!isValid && !dirty) || isSubmitting || !dirty
+                          }
+                          variant="outlined"
+                          fullWidth={true}
+                          className={classes.submitBtn}
+                          onClick={(event: any) => {
+                            if (!isValid || Object.keys(errors).length > 0) {
+                              handlePopper(event);
+                              console.log("not submitted..");
+                            } else {
+                              console.log("It's been submitted!");
+                              submitForm();
+                              handleSubmit(values);
+                              handleLoading();
+                            }
+                          }}
+                        >
+                          {btnLoading ? (
+                            <CircularProgress size={15} thickness={2} />
+                          ) : (
+                            <span>Submit</span>
+                          )}
+                        </Button>
+                      </div>
+                      <Popper open={open} anchorEl={anchorEl}>
+                        <div className={classes.paper}>
+                          Please finish the form.
+                        </div>
+                      </Popper>
+                      {/* <pre>{JSON.stringify(values.images)}</pre> */}
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
+      </Container>
+    </GridContainer>
   );
 }

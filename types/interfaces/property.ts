@@ -1,58 +1,45 @@
 export interface ContentfulImages {
   fields: {
     file: {
-      url: string
-    }
-  }
+      url: string;
+    };
+  };
 }
 
-export type PetFriendly =
-  | 'No Pets'
-  | 'no pets'
-  | 'Cats Only'
-  | 'cats only'
-  | 'Yes'
-  | 'yes'
+export type PetFriendly = "Yes" | "No" | "Dogs & Cats Only"
 
-export type PropertyTypes = 'Apartment' | 'Condominium' | 'House' | ''
+export type PropertyTypes = "Apartment" | "Condominium" | "House" | "";
+
+export type MarketStatus = "Rent" | "Sale" | "Sold"
+
 export interface Property {
-  id: string
+  id?: string;
 
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
 
-  address: string
-  // streetAddress: string
-  city: string
-  state: string
-  zipcode: string
+  address: string;
 
-  latitude: number
-  longitude: number
+  latitude: number;
+  longitude: number;
 
-  images: ContentfulImages[]
-  image: ContentfulImages
+  images: ContentfulImages[];
+  image: ContentfulImages | null;
 
-  price: string
+  price: string;
 
-  bedrooms: number
-  bathrooms: number
+  bedrooms: number;
+  bathrooms: number;
 
-  sqft: number
-  carSpaces: number
+  sqft: number;
+  carSpaces: number;
 
-  type: PropertyTypes
+  type: PropertyTypes;
+  status: MarketStatus
 
-  datePosted: string
+  datePosted: string;
 
-  petFriendly: PetFriendly
+  petFriendly: PetFriendly;
 }
-
-export interface PropertyPost extends Property {}
-// export interface PropertyData {
-//   fields: Property
-// }
-
-// export type PropertiesData = PropertyData[]

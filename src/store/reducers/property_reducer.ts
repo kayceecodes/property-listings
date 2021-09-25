@@ -9,19 +9,17 @@ const fields = {file: {url: ''}}
 export const initialState: PropertyState = {
   selectedProperty: {
     id: '',
-
+    
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    streetAddress: '',
-    city: '',
-    zipcode: '',
-    state: '',
 
+    address: '',
     latitude: 0,
     longitude: -0,
 
+    image: {fields},
     images: [{fields}],
 
     price: '$0.00',
@@ -34,9 +32,9 @@ export const initialState: PropertyState = {
     carSpaces: 0,
     
     type: '',
+    status: 'Rent',
     
-    
-    petFriendly: 'No Pets',
+    petFriendly: 'No',
   },
 }
 

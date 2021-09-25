@@ -249,7 +249,7 @@ export const inputProps = [
     sm: 6,
     name: "datePosted",
     label: "Date Posted",
-    type: "Date Picker",
+    type: "date-picker",
   },
   {
     xs: 6,

@@ -92,18 +92,22 @@ export default function PropertyCard({ property, setOpen }: Props) {
             </GridContainer>
           </Typography>
           <br />
-          <Typography variant="subtitle2">
-            {property.address}
-          </Typography>
+          <Typography variant="subtitle2">{property.address}</Typography>
           <Typography variant="body1">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum
-            exercitationem magni quaerat culpa quisquam nulla!
+            Checkout this lovely home. Click to see the contact information.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" className={classes.favorite}>
-          <Icon>favorite</Icon>
+        <Button
+          size="small"
+          className={classes.favorite}
+          onClick={(event: any) => {
+            setOpen(true);
+            dispatch(selectProperty(property));
+          }}
+        >
+          <Icon>house</Icon> <small> {property.status}</small>
         </Button>
         <Button
           size="small"

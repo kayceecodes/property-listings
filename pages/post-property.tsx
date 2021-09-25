@@ -8,7 +8,6 @@ import theme from '@/theme/Theme'
 import GridContainer from '@/src/ui/grid/GridContainer'
 import { color } from '@/src/theme/Color'
 import Box from '@material-ui/core/Box/Box'
-// import PostForm from '@/components/postForm/PostForm'
 import PostForm from '@/components/postForm/index'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
 import PageTransition from '@/src/hoc/PageTransition'
@@ -17,7 +16,6 @@ import { PageAnimations } from 'types/interfaces/animation'
 interface Props {
   pageStyle?: CSSProperties
   pageAnimations: PageAnimations
-  // properties: PropertyData[]
   properties: any
 }
 
@@ -28,8 +26,7 @@ export default function PostPropertyPage(props: Props) {
   const matches = {
     sm: useMediaQuery(theme.breakpoints.up('sm')),
     md: useMediaQuery(theme.breakpoints.up('md')),
-  } /* 0px     600px    960px    1280px   1920px */
-
+  } 
   return (
     <Layout>
       <PageTransition pageAnimations={pageAnimations}>
