@@ -2,15 +2,34 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/styles/*": ["styles/*"],
-      "@/data/*": ["src/components/data/*"],
-      "@/src/*": ["src/*"],
-      "@/theme/*": ["src/theme/*"],
-      "@/tests/*": ["test/*"]
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/data/*": [
+        "src/components/data/*"
+      ],
+      "@/src/*": [
+        "src/*"
+      ],
+      "@/theme/*": [
+        "src/theme/*"
+      ],
+      "@/tests/*": [
+        "test/*"
+      ],
+      "@/types/*": [
+        "types/*"
+      ]
     },
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -21,7 +40,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "react"
   },
   "include": [
     "next-env.d.ts",
@@ -30,5 +49,7 @@
     "src/data/generate.js",
     "src/data/generate-contentful.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
